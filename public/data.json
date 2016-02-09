@@ -1,0 +1,74 @@
+{
+    "venues": [
+        {
+            "id": 1,
+            "name": "Test venue",
+            "address": "612 W. 6th St.",
+            "lat": 30.2701090000,
+            "lng": -97.7489949001,
+            "website": "",
+            "twitter": "",
+            "facebook": ""
+        },
+        {
+            "id": 2,
+            "name": "Test venue 2",
+            "address": "612 W. 6th St.",
+            "lat": 30.2701090000,
+            "lng": -97.7489949001,
+            "website": "",
+            "twitter": "",
+            "facebook": ""
+        }
+    ],
+    "events": [
+        {
+            "id": 1,
+            "name": "Test event",
+            "description": "Here is some test description. Earliest.",
+            "date": "13",
+            "time": "14:30",
+            "bands": "band 1<br>band 2",
+            "venue": 1,
+            "free_entry": true,
+            "free_food": false,
+            "rsvp": true,
+            "staff_pick": false,
+            "official": false,
+            "event_link": "",
+            "poster": ""
+        },
+        {
+            "id": 2,
+            "name": "Test event 2",
+            "description": "Here is some test description. Middle.",
+            "date": "10",
+            "time": "19:30",
+            "bands": "band 1<br>band 2",
+            "venue": 2,
+            "free_entry": false,
+            "free_food": true,
+            "rsvp": true,
+            "staff_pick": true,
+            "official": true,
+            "event_link": "",
+            "poster": ""
+        },
+        {
+            "id": 3,
+            "name": "Test event 3",
+            "description": "Here is some test description. Latest.",
+            "date": "15",
+            "time": "20:30",
+            "bands": "band 1<br>band 2",
+            "venue": 2,
+            "free_entry": false,
+            "free_food": true,
+            "rsvp": true,
+            "staff_pick": true,
+            "official": true,
+            "event_link": "",
+            "poster": ""
+        }
+    ]
+}

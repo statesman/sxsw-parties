@@ -1,0 +1,59 @@
+// Bring in vanilla Bootstrap ...
+@import 'custom-bootstrap/bootstrap.less';
+// ... and then decorate it with Statesman styles
+@import 'custom-bootstrap/variables.less';
+
+@import "../../bower_components/font-awesome/less/font-awesome";
+
+@import "header";
+@import "footer";
+@import "type";
+@import "utils";
+
+.container {
+  @media (min-width: @screen-sm-min) {
+    padding-left: 75px;
+    padding-right: 75px;
+  }
+}
+
+body {
+    background-image: url('../assets/bg_out.png');
+}
+
+.main {
+    margin-top:30px;
+}
+
+.bold {
+    font-style:bold;
+}
+
+.item {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-top: 10px solid #C3082A;
+}
+
+.muted {
+    color:#aaa;
+}
+
+.more_filters {
+    display:none;
+}
+
+#loading {
+    opacity:0.5;
+}
+
+#pagetitle {
+    font-family:'Alfa Slab One', cursive;
+}
+
+.interactive-header {
+    padding:20px;
+    background: #eee;
+    box-shadow: 0 0 5px #ccc;
+}
