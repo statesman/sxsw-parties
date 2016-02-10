@@ -38,11 +38,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="dist/style.css">
 
-  <link href='http://fonts.googleapis.com/css?family=Lusitana:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lusitana:400,700,900' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,300,300italic,400italic,700italic,700,800,800italic' rel='stylesheet' type='text/css'>
-   <link href='http://fonts.googleapis.com/css?family=Alfa+Slab+One' rel='stylesheet' type='text/css'>
-
 
   <?php /* CMG advertising and analytics */ ?>
   <?php include "includes/advertising.inc"; ?>
@@ -82,48 +80,72 @@
 
     <div class="row main">
       <div class="col-lg-6 interactive-header">
-      <h1 id="pagetitle">Your unofficial SXSW party guide</h1>
+      <h1 id="pagetitle" style="font-weight:bold;">Your unofficial SXSW party guide</h1>
 
       <p class="author">By So Andso</p>
-      <p>Lucas ipsum dolor sit amet boba calrissian amidala sith dooku solo moff organa obi-wan windu. Gamorrean binks wedge darth. Mon darth mon kit ponda solo.</p>
+      <p>Lucas ipsum dolor sit amet boba calrissian amidala sith dooku solo moff organa obi-wan windu. There are <span id="total_count"></span> parties in this guide. Gamorrean binks wedge darth. Mon darth mon kit ponda solo.</p>
+
+      <p class="lead" id="loading"></p>
+
+      <div id="filter_wrapper">
+
       <hr>
 
-              <h2 class="bold">Search&emsp;<span id="loading"></span></h2>
+              <h2 class="bold">Search
+                  <span class="pull-right">
+                      <button type="button" class="btn btn-default btn-xs" id="clear_button">
+                          <i class="fa fa-times-circle"></i> Clear
+                      </button>
+                  </span>
+              </h2>
       <div id="filter_forms">
 
+<div class="row">
 
-<label class="checkbox-inline input-lg" for="free_entry">
+<div class="col-md-6">
+<div class="checkbox">
+<label for="free_entry">
     <input type="checkbox" id="free_entry">
-    <span class="label label-danger"><i class="fa fa-usd"></i>&emsp;Free entry</span>
+    <span class="label label-success"><i class="fa fa-thumbs-up"></i>&emsp;Free entry</span>
 </label>
+</div>
 
-<label class="checkbox-inline input-lg" for="free_food">
-    <input type="checkbox" id="free_food" checked="checked">
+<div class="checkbox">
+<label for="free_food">
+    <input type="checkbox" id="free_food">
     <span class="label label-primary"><i class="fa fa-cutlery"></i>&emsp;Free food</span>
 </label>
+</div>
 
-
-<label class="checkbox-inline input-lg" for="rsvp">
+<div class="checkbox">
+<label for="rsvp">
     <input type="checkbox" id="rsvp">
-    <span class="label label-warning"><i class="fa fa-pencil"></i>&emsp;RSVP required</span>
+    <span class="label label-info"><i class="fa fa-pencil"></i>&emsp;RSVP required</span>
 </label>
+</div>
 
-<label class="checkbox-inline input-lg" for="staff_pick"  style="float:left;">
+<div class="checkbox">
+<label for="staff_pick">
     <input type="checkbox" id="staff_pick">
-    <span class="label label-info"><i class="fa fa-star"></i>&emsp;Staff pick</span>
+    <span class="label label-warning"><i class="fa fa-star"></i>&emsp;Staff pick</span>
 </label>
+</div>
 
-
-<label class="checkbox-inline input-lg" for="official">
+<div class="checkbox">
+<label for="official">
     <input type="checkbox" id="official">
-    <span class="label label-success"><i class="fa fa-shield"></i>&emsp;Badge required</span>
+    <span class="label label-danger"><i class="fa fa-shield"></i>&emsp;Badge required</span>
 </label>
+</div>
 
+</div>
+
+<div class="col-md-6">
 
     <div class="form-group" style="margin-top:10px;">
         <label for="day_search">Day</label>
-        <select class="form-control input-lg" id="day_search">
-            <option value="" selected="selected">---------</option>
+        <select class="form-control" id="day_search">
+            <option value="" selected="selected">All</option>
             <option value="10">Thu (March 10)</option>
             <option value="11">Fri (March 11)</option>
             <option value="12">Sat (March 12)</option>
@@ -138,33 +160,51 @@
         </select>
     </div>
 
-    <div id="geo_filter"></div>
-
-    <p class="small"><a id="more_filter_click">More options&ensp;<i class="fa fa-plus-square"></i></a></p>
-
-    <div class="more_filters">
-
+    <div id="geo_search_wrapper">
         <div class="form-group" style="margin-top:10px;">
-            <label for="event_search">Event name</label>
-            <input type="text" class="form-control input-lg" id="event_search">
-        </div>
-
-        <div class="form-group" style="margin-top:10px;">
-            <label for="venue_search">Venue</label>
-            <input type="text" class="form-control input-lg" id="venue_search" placeholder="Looking for a specific venue?">
-        </div>
-
-        <div class="form-group" style="margin-top:10px;">
-            <label for="band_search">Band</label>
-            <input type="text" class="form-control input-lg" id="band_search" placeholder="A specific band?">
+            <label for="geo_search">Nearby</label>
+            <select class="form-control" id="geo_search">
+                <option value="" selected="selected">All</option>
+                <option value="1">Within 1 mile of me</option>
+                <option value="0.75">Within 3/4 mile of me</option>
+                <option value="0.5">Within 1/2 mile of me</option>
+                <option value="0.25">Within 1/4 mile of me</option>
+            </select>
         </div>
     </div>
 
+</div>
+</div>
 
+    <p class="small pull-right"><a id="more_filter_click">
+        <span class="toggle_options">More options &raquo;</span>
+        <span class="toggle_options" style="display:none;">&laquo; Fewer options</span>
+    </a></p>
+
+    <div id="more_filters" style="display:none;">
+
+        <div class="form-group" style="margin-top:10px;">
+            <label for="event_search">Event name contains</label>
+            <input type="text" class="form-control" id="event_search">
+        </div>
+
+        <div class="form-group" style="margin-top:10px;">
+            <label for="venue_search">Venue name contains</label>
+            <input type="text" class="form-control" id="venue_search" placeholder="Looking for a specific venue?">
+        </div>
+
+        <div class="form-group" style="margin-top:10px;">
+            <label for="band_search">Band names contain</label>
+            <input type="text" class="form-control" id="band_search" placeholder="A specific band?">
+        </div>
+    </div>
 
       </div>
 
-<button class="btn btn-primary btn-lg btn-block" type="button" id="submit_button">Go &raquo;</button>
+<button class="btn btn-default btn-block" type="button" id="submit_button">Go &raquo;</button>
+
+<div id="results_count"></div>
+</div>
 
             </div>
 
@@ -175,15 +215,58 @@
     <script type="text/html" class="template">
         <% _.each(sxsw, function(d) { %>
             <div class="item" id="<%= d.event_details.id %>">
-                <h2 style="margin-top:0; font-weight:bold;">
+                <div class="sharebox">
+                    <p class="bold">
+                        Share this party
+                        <span class="pull-right">
+                            <a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).tw %>" target="_blank"><i class="fa fa-twitter"></i></a>
+                            &ensp;
+                            <a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).fb %>" target="_blank"><i class="fa fa-facebook-square"></i></a>
+                        </span>
+
+                    </p>
+                </div>
+
+                <div class="inner-wrapper">
+                <h1 style="margin-top:0; font-weight:bold;">
                     <%= d.event_details.name %>
-                </h2>
-                <h3><%= d.venue_details.name %></h3>
-                <p><%= d.event_details.description %></p>
-                <% if (d.event_details.bands && d.event_details.bands !== "") { %>
-                <p><%= d.event_details.bands %></p>
+                </h1>
+                <p class="ital">
+                    March <%= d.event_details.date %>
+                    &ensp;&bull;&ensp;
+                    <%= get12Hour(d.event_details.time) %>
+                    <% if (d.event_details.rsvp) { %>
+                    &ensp;&bull;&ensp;
+                    <a href="<%= d.event_details.event_link %>" target="_blank">RSVP</a>
+                    <% }; %>
+                </p>
+
+                <%= labelIt(d.event_details) %>
+
+                <p class="comment"><%= d.event_details.description %></p>
+
+                <% if (d.event_details.event_link && d.event_details.event_link !== "") { %>
+                <p><a href="<%= d.event_details.event_link %>" target="_blank">Website</a></p>
                 <% }; %>
-                <p><%= labelIt(d.event_details) %></p>
+
+                <% if (d.event_details.bands && d.event_details.bands !== "") { %>
+                    <hr>
+                <p><span class="bold">Bands</span><br><%= d.event_details.bands %></p>
+                <% }; %>
+
+                <hr>
+
+                <h3 class="bold">
+                    <%= d.venue_details.name %>
+                </h3>
+                <p><i class="fa fa-map-marker"></i>&ensp;<a href="<%= googleMap(d.venue_details.address) %>" target="_blank"><%= d.venue_details.address %></a></p>
+
+                <% if (d.event_details.poster && d.event_details.poster !== "") { %>
+                <img src="<%= d.event_details.poster %>" style="width:100%; margin-top:10px;" />
+                <% }; %>
+
+            </div>
+
             </div>
         <% }); %>
     </script>
