@@ -2,19 +2,19 @@
 var labelIt = function(item) {
   var ls = [];
   if (item.free_entry) {
-      ls.push('<span class="label label-danger"><i class="fa fa-thumbs-up"></i></span>');
+      ls.push('<span class="label label-sucess"><i class="fa fa-thumbs-up"></i></span>');
   }
   if (item.staff_pick) {
-      ls.push('<span class="label label-info"><i class="fa fa-star"></i></span>');
+      ls.push('<span class="label label-warning"><i class="fa fa-star"></i></span>');
   }
   if (item.free_food) {
       ls.push('<span class="label label-primary"><i class="fa fa-cutlery"></i></span>');
   }
   if (item.rsvp) {
-      ls.push('<span class="label label-warning"><i class="fa fa-pencil"></i></span>');
+      ls.push('<span class="label label-info"><i class="fa fa-pencil"></i></span>');
   }
   if (item.official) {
-      ls.push('<span class="label label-success"><i class="fa fa-shield"></i></span>');
+      ls.push('<span class="label label-danger"><i class="fa fa-shield"></i></span>');
   }
   if (ls.length > 0) {
       return "<p>" + ls.join("&ensp;") + "</p>";

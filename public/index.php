@@ -106,7 +106,7 @@
 <div class="checkbox">
 <label for="free_entry">
     <input type="checkbox" id="free_entry">
-    <span class="label label-danger"><i class="fa fa-thumbs-up"></i>&emsp;Free entry</span>
+    <span class="label label-success"><i class="fa fa-thumbs-up"></i>&emsp;Free entry</span>
 </label>
 </div>
 
@@ -120,21 +120,21 @@
 <div class="checkbox">
 <label for="rsvp">
     <input type="checkbox" id="rsvp">
-    <span class="label label-warning"><i class="fa fa-pencil"></i>&emsp;RSVP required</span>
+    <span class="label label-info"><i class="fa fa-pencil"></i>&emsp;RSVP required</span>
 </label>
 </div>
 
 <div class="checkbox">
 <label for="staff_pick">
     <input type="checkbox" id="staff_pick">
-    <span class="label label-info"><i class="fa fa-star"></i>&emsp;Staff pick</span>
+    <span class="label label-warning"><i class="fa fa-star"></i>&emsp;Staff pick</span>
 </label>
 </div>
 
 <div class="checkbox">
 <label for="official">
     <input type="checkbox" id="official">
-    <span class="label label-success"><i class="fa fa-shield"></i>&emsp;Badge required</span>
+    <span class="label label-danger"><i class="fa fa-shield"></i>&emsp;Badge required</span>
 </label>
 </div>
 
