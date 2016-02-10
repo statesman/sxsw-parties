@@ -38,11 +38,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="dist/style.css">
 
-  <link href='http://fonts.googleapis.com/css?family=Lusitana:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lusitana:400,700,900' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,300,300italic,400italic,700italic,700,800,800italic' rel='stylesheet' type='text/css'>
-   <link href='http://fonts.googleapis.com/css?family=Alfa+Slab+One' rel='stylesheet' type='text/css'>
-
 
   <?php /* CMG advertising and analytics */ ?>
   <?php include "includes/advertising.inc"; ?>
@@ -82,16 +80,21 @@
 
     <div class="row main">
       <div class="col-lg-6 interactive-header">
-      <h1 id="pagetitle">Your unofficial SXSW party guide</h1>
+      <h1 id="pagetitle" style="font-weight:bold;">Your unofficial SXSW party guide</h1>
 
       <p class="author">By So Andso</p>
-      <p>Lucas ipsum dolor sit amet boba calrissian amidala sith dooku solo moff organa obi-wan windu. Gamorrean binks wedge darth. Mon darth mon kit ponda solo.</p>
+      <p>Lucas ipsum dolor sit amet boba calrissian amidala sith dooku solo moff organa obi-wan windu. There are <span id="total_count"></span> parties in this guide. Gamorrean binks wedge darth. Mon darth mon kit ponda solo.</p>
+
+      <p class="lead" id="loading"></p>
+
+      <div id="filter_wrapper">
+
       <hr>
 
-              <h2 class="bold">Search&emsp;<span id="loading"></span>
+              <h2 class="bold">Search
                   <span class="pull-right">
                       <button type="button" class="btn btn-default btn-xs" id="clear_button">
-                          <i class="fa fa-times-circle"></i> Clear filters
+                          <i class="fa fa-times-circle"></i> Clear
                       </button>
                   </span>
               </h2>
@@ -162,10 +165,10 @@
             <label for="geo_search">Nearby</label>
             <select class="form-control" id="geo_search">
                 <option value="" selected="selected">All</option>
+                <option value="1">Within 1 mile of me</option>
+                <option value="0.75">Within 3/4 mile of me</option>
+                <option value="0.5">Within 1/2 mile of me</option>
                 <option value="0.25">Within 1/4 mile of me</option>
-                <option value="0.5">Within 1/2 mile</option>
-                <option value="0.75">Within 3/4 mile</option>
-                <option value="1">Within 1 mile</option>
             </select>
         </div>
     </div>
@@ -181,17 +184,17 @@
     <div id="more_filters" style="display:none;">
 
         <div class="form-group" style="margin-top:10px;">
-            <label for="event_search">Event name</label>
+            <label for="event_search">Event name contains</label>
             <input type="text" class="form-control" id="event_search">
         </div>
 
         <div class="form-group" style="margin-top:10px;">
-            <label for="venue_search">Venue</label>
+            <label for="venue_search">Venue name contains</label>
             <input type="text" class="form-control" id="venue_search" placeholder="Looking for a specific venue?">
         </div>
 
         <div class="form-group" style="margin-top:10px;">
-            <label for="band_search">Band</label>
+            <label for="band_search">Band names contain</label>
             <input type="text" class="form-control" id="band_search" placeholder="A specific band?">
         </div>
     </div>
@@ -201,6 +204,7 @@
 <button class="btn btn-default btn-block" type="button" id="submit_button">Go &raquo;</button>
 
 <div id="results_count"></div>
+</div>
 
             </div>
 
@@ -241,13 +245,13 @@
 
                 <p class="comment"><%= d.event_details.description %></p>
 
+                <% if (d.event_details.event_link && d.event_details.event_link !== "") { %>
+                <p><a href="<%= d.event_details.event_link %>" target="_blank">Website</a></p>
+                <% }; %>
+
                 <% if (d.event_details.bands && d.event_details.bands !== "") { %>
                     <hr>
                 <p><span class="bold">Bands</span><br><%= d.event_details.bands %></p>
-                <% }; %>
-
-                <% if (d.event_details.event_link && d.event_details.event_link !== "") { %>
-                <p><a href="<%= d.event_details.event_link %>" target="_blank">Website</a></p>
                 <% }; %>
 
                 <hr>

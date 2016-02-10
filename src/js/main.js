@@ -28,17 +28,6 @@ var googleMap = function(addy) {
     return "https://www.google.com/maps/place/" + addy.replace(/ /g,"+") + ",+Austin,+TX";
 };
 
-// function to return user lat/lng, if geolocation is available and they opt in
-var getCoords = function(callback) {
-    if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(callback, function() {
-            console.log("~~~");
-        });
-    } else {
-        callback(null);
-    }
-};
-
 // haversine formula to return distance between two points, via http://www.movable-type.co.uk/scripts/latlong.html
 var haversine = function(lat1, lng1, lat2, lng2) {
     var earth_radius = 3959; // mean earth radius in miles
@@ -164,6 +153,7 @@ var get12Hour = function(timestring) {
     var $more_filters = $("#more_filters");
     var $toggle_options = $(".toggle_options");
     var $geo_search_wrapper = $('#geo_search_wrapper');
+    var $filter_wrapper = $('#filter_wrapper');
     var $results_count = $("#results_count");
 
     // set global template variable
@@ -172,23 +162,14 @@ var get12Hour = function(timestring) {
     // fetch template for list div
     var template = _.template($( "script.template" ).html());
 
-    // function to load spinner, or not
-    var spinner = function(waiting) {
-        if (waiting) {
-            $loading.html("<i class='fa fa-cog fa-spin'></i>");
-        } else {
-            $loading.html("");
-        }
-    };
-
     // function to clear filters
     var clear_filters = function() {
-        spinner(true);
+        $loading.html("<i class='fa fa-cog fa-spin'></i>");
         $('input[type=text]').val('');
         $('input[type=checkbox]').attr('checked', false);
         $('#day_search option:eq(0)').prop('selected', true);
         $list.html('');
-        spinner(false);
+        $loading.html("");
     };
 
     // function to toggle additional filters
@@ -211,9 +192,10 @@ var get12Hour = function(timestring) {
 
     var init = function(data, latitude, longitude) {
 
-        // Did user pass a hashed ID to the URL?
+        var time_for_SXSW = isItSXSW();
+
+        // Check if user passed a hashed ID to the URL
         if(window.location.hash) {
-          spinner(true);
           var event_id = window.location.hash.replace("#","");
           var record = _.findWhere(data.events, {"id": Number(event_id)});
           if (record && record !== null) {
@@ -222,12 +204,10 @@ var get12Hour = function(timestring) {
                   venue_details: _.findWhere(data.venues, {"id": record.venue})
               }];
               $list.html(template(data_to_template));
+              $results_count.html("<hr><div class='alert alert-danger lead' role='alert'>Found <strong>1</strong> party</div>");
               $(".comment").shorten();
           }
-          spinner(false);
         }
-
-        var time_for_SXSW = isItSXSW();
 
         if (time_for_SXSW) {
             var d = new Date();
@@ -240,25 +220,25 @@ var get12Hour = function(timestring) {
         $('#more_filter_click').on('click', toggle_filters);
 
         $submit_button.on('click', function() {
-            spinner(true);
+            $loading.html("<i class='fa fa-cog fa-spin'></i>");
             var search_state = getSearchState();
             var matches = _.chain(data.events)
                 .filter(function(d) {
                     var venue_details = _.findWhere(data.venues, {"id": d.venue});
-                    var included = 0;
+                    var exclude = 0;
                     if (search_state.event_name !== "") {
                         if (d.name.toUpperCase().indexOf(search_state.event_name) < 0) {
-                            included++;
+                            exclude++;
                         }
                     }
                     if (search_state.band !== "") {
                         if (d.bands.toUpperCase().indexOf(search_state.band) < 0) {
-                            included++;
+                            exclude++;
                         }
                     }
                     if (search_state.day !== "") {
                         if (Number(search_state.day) !== d.date) {
-                            included++;
+                            exclude++;
                         }
                     }
                     if (search_state.geo !== "") {
@@ -267,43 +247,43 @@ var get12Hour = function(timestring) {
                           var venue_lng = venue_details.lng;
                           var distance = haversine(latitude, longitude, venue_lat, venue_lng);
                           if (distance > parseFloat(search_state.geo)) {
-                                  included++;
+                                  exclude++;
                           }
                         }
                     }
                     if (search_state.venue !== "") {
                         if (venue_details.name.toUpperCase().indexOf(search_state.venue) < 0) {
-                            included++;
+                            exclude++;
                         }
                     }
                     if (search_state.free_food === true) {
                         if (d.free_food !== search_state.free_food) {
-                            included++;
+                            exclude++;
                         }
                     }
                     if (search_state.free_entry === true) {
                         if (d.free_entry !== search_state.free_entry) {
-                            included++;
+                            exclude++;
                         }
                     }
                     if (search_state.rsvp === true) {
                         if (d.rsvp !== search_state.rsvp) {
-                            included++;
+                            exclude++;
                         }
                     }
                     if (search_state.staff_pick === true) {
                         if (d.staff_pick !== search_state.staff_pick) {
-                            included++;
+                            exclude++;
                         }
                     }
                     if (search_state.official === true) {
                         if (d.official !== search_state.official) {
-                            included++;
+                            exclude++;
                         }
                     }
-                    return included === 0;
+                    return exclude === 0;
                 })
-                .map(function(value, key) {
+                .map(function(value) {
                     return {
                         event_details: value,
                         venue_details: _.findWhere(data.venues, {"id": value.venue}),
@@ -311,7 +291,7 @@ var get12Hour = function(timestring) {
                 })
                 .sortBy(
                     function(x) {
-                        return new Date(x.date + " " + x.time).getTime();
+                        return new Date("March " + x.date + ", 2016 " + x.time).getTime();
                     }
                 )
                 .value();
@@ -323,8 +303,7 @@ var get12Hour = function(timestring) {
                 count = "party";
             }
             $results_count.html("<hr><div class='alert alert-danger lead' role='alert'>Found <strong>" + matches.length + "</strong> " + count + "</div>");
-            spinner(false);
-
+            $loading.html("");
         });
 
         $('input[type=text]').bind('keypress', function(e) {
@@ -356,14 +335,32 @@ var get12Hour = function(timestring) {
 
     $(document).ready(function() {
         $.getJSON(data_url, function(d) {
+            // function to return user lat/lng, if geolocation is available and they opt in
+            var getCoords = function(callback) {
+                if (navigator.geolocation) {
+                    navigator.geolocation.watchPosition(callback, declined_geocoding);
+                } else {
+                    callback(null);
+                }
+            };
+            var declined_geocoding = function() {
+                $filter_wrapper.show();
+                init(d, null, null);
+            };
             getCoords(function(position) {
               if(position !== null) {
-                  $('#geo_search_wrapper').show();
+                  $loading.html("<i class='fa fa-cog fa-spin'></i>");
                   var user_lat = position.coords.latitude;
                   var user_lng = position.coords.longitude;
+                  $geo_search_wrapper.show();
                   init(d, user_lat, user_lng);
+                  $filter_wrapper.show();
+                  $loading.html('');
               } else {
+                  $loading.html("<i class='fa fa-cog fa-spin'></i>");
                   init(d, null, null);
+                  $filter_wrapper.show();
+                  $loading.html('');
               }
             });
         });
