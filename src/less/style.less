@@ -19,6 +19,7 @@
 
 body {
     background-image: url('../assets/bg_out.png');
+    background-attachment: fixed;
 }
 
 .main {
@@ -26,22 +27,49 @@ body {
 }
 
 .bold {
-    font-style:bold;
+    font-weight:bold;
+}
+
+.ital {
+    font-style:italic;
 }
 
 .item {
     background: white;
+    margin-bottom: 30px;
+}
+
+.item .inner-wrapper {
     padding: 20px;
-    margin-bottom: 20px;
-    border-top: 10px solid #C3082A;
+}
+
+
+#results_count {
+    margin-top:20px;
+}
+
+#more_filter_click {
+    cursor: pointer;
 }
 
 .muted {
     color:#aaa;
 }
 
-.more_filters {
+.sharebox {
+    margin: 0;
+    background: #C3082A;
+    color: white;
+    padding:10px 20px 2px 20px;
+    vertical-align: middle;
+}
+
+#geo_search_wrapper {
     display:none;
+}
+
+.sharebox a i {
+    color: white;
 }
 
 #loading {
