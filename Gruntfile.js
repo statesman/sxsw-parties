@@ -117,7 +117,7 @@ module.exports = function(grunt) {
     slack: {
         options: {
           endpoint: fs.readFileSync('.slack', {encoding: 'utf8'}),
-          channel: '#dev',
+          channel: '#bakery',
           username: 'gruntbot',
           icon_url: 'http://vermilion1.github.io/presentations/grunt/images/grunt-logo.png'
         },

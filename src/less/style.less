@@ -19,11 +19,20 @@
 
 body {
     background-image: url('../assets/bg_out.png');
-    background-attachment: fixed;
+    background-size: cover;
 }
 
+.navbar{
+    border-bottom:1px solid #ddd;
+    -webkit-box-shadow:0 0 13px rgba(0,0,0,.1);
+    box-shadow:0 0 13px rgba(0,0,0,.1);
+    min-height:60px;
+}
+
+.navbar-brand { padding:5px 15px;}
+
 .main {
-    margin-top:30px;
+    margin-top:90px;
 }
 
 .bold {
@@ -32,6 +41,14 @@ body {
 
 .ital {
     font-style:italic;
+}
+
+div.checkbox {
+    margin-bottom:20px;
+}
+
+.check_label {
+    font-size:110%;
 }
 
 .item {
@@ -44,7 +61,7 @@ body {
 }
 
 
-#results_count {
+#results_count, #submit_button {
     margin-top:20px;
 }
 
@@ -60,7 +77,7 @@ body {
     margin: 0;
     background: #C3082A;
     color: white;
-    padding:10px 20px 2px 20px;
+    padding:20px 20px 1px 20px;
     vertical-align: middle;
 }
 

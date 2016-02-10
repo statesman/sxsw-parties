@@ -2,7 +2,7 @@
 var labelIt = function(item) {
   var ls = [];
   if (item.free_entry) {
-      ls.push('<span class="label label-sucess"><i class="fa fa-thumbs-up"></i></span>');
+      ls.push('<span class="label label-success"><i class="fa fa-thumbs-up"></i></span>');
   }
   if (item.staff_pick) {
       ls.push('<span class="label label-warning"><i class="fa fa-star"></i></span>');
@@ -21,6 +21,19 @@ var labelIt = function(item) {
   } else {
       return "";
   }
+};
+
+// function to add thousand-separator commas
+var addCommas = function(num) {
+    num += '';
+    var x = num.split('.');
+    var x1 = x[0];
+    var x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
 };
 
 // function to return google maps link
@@ -44,7 +57,7 @@ var haversine = function(lat1, lng1, lat2, lng2) {
 
 // function to return tw/fb links
 var aas_social = function(event_id, event_name, event_time, event_date, venue_name) {
-    var root_url = window.location.hostname;
+    var root_url = window.location.hostname + "/sxsw/";
     var twitter_message = encodeURIComponent("Via @statesman SXSW party guide: " + event_name + " ~ March " + event_date + ", " + get12Hour(event_time) + " ~ " + venue_name + ": " + root_url + "/#" + event_id);
     return {
         tw: "https://twitter.com/intent/tweet?text=" + twitter_message,
@@ -139,7 +152,7 @@ var get12Hour = function(timestring) {
 
     // cache dom references
     var $list = $("#outlist");
-    var $loading = $("#loading");
+    var $loader = $("#loader");
     var $submit_button = $("#submit_button");
     var $clear_button = $("#clear_button");
     var $event_filter = $("#event_search");
@@ -162,22 +175,6 @@ var get12Hour = function(timestring) {
     // fetch template for list div
     var template = _.template($( "script.template" ).html());
 
-    // function to clear filters
-    var clear_filters = function() {
-        $loading.html("<i class='fa fa-cog fa-spin'></i>");
-        $('input[type=text]').val('');
-        $('input[type=checkbox]').attr('checked', false);
-        $('#day_search option:eq(0)').prop('selected', true);
-        $list.html('');
-        $loading.html("");
-    };
-
-    // function to toggle additional filters
-    var toggle_filters = function() {
-        $more_filters.toggle();
-        $toggle_options.toggle();
-    };
-
     // is it sxsw?
     var isItSXSW = function(today) {
       var d = new Date();
@@ -192,7 +189,37 @@ var get12Hour = function(timestring) {
 
     var init = function(data, latitude, longitude) {
 
+        //toggle_filters);
+        $('a[href^="#"]').on('click', function(e) {
+            var target = $( $(this).attr('href') );
+            if( target.length ) {
+                e.preventDefault();
+                $('html, body').animate({
+                    scrollTop: target.offset().top - 70
+                }, 'fast');
+            }
+        });
+
+        // function to clear filters
+        var clear_filters = function() {
+            $('input[type=text]').val('');
+            $('input[type=checkbox]').attr('checked', false);
+            $('select option:eq(0)').prop('selected', true);
+            $list.html('');
+            $results_count.html('');
+        };
+
+        // function to toggle additional filters
+        var toggle_filters = function() {
+            $more_filters.toggle();
+            $toggle_options.toggle();
+        };
+
         var time_for_SXSW = isItSXSW();
+
+        $clear_button.on('click', clear_filters);
+        $('#more_filter_click').on('click', toggle_filters);
+        $("#total_count").html(addCommas(data.events.length));
 
         // Check if user passed a hashed ID to the URL
         if(window.location.hash) {
@@ -206,6 +233,10 @@ var get12Hour = function(timestring) {
               $list.html(template(data_to_template));
               $results_count.html("<hr><div class='alert alert-danger lead' role='alert'>Found <strong>1</strong> party</div>");
               $(".comment").shorten();
+              if (record.poster && record.poster !== "") {
+                  $('fb_img_meta').attr('content', record.poster);
+                  $('tw_img_meta').attr('content', record.poster);
+              }
           }
         }
 
@@ -215,12 +246,8 @@ var get12Hour = function(timestring) {
             $('#day_search option[value="' + today + '"]').attr("selected", "selected");
         }
 
-        $clear_button.on('click', clear_filters);
-
-        $('#more_filter_click').on('click', toggle_filters);
-
         $submit_button.on('click', function() {
-            $loading.html("<i class='fa fa-cog fa-spin'></i>");
+            $loader.html("<i class='fa fa-cog fa-spin'></i>");
             var search_state = getSearchState();
             var matches = _.chain(data.events)
                 .filter(function(d) {
@@ -236,10 +263,8 @@ var get12Hour = function(timestring) {
                             exclude++;
                         }
                     }
-                    if (search_state.day !== "") {
-                        if (Number(search_state.day) !== d.date) {
+                    if (Number(search_state.day) !== d.date) {
                             exclude++;
-                        }
                     }
                     if (search_state.geo !== "") {
                         if (latitude && latitude !== null && longitude && longitude !== null) {
@@ -303,7 +328,11 @@ var get12Hour = function(timestring) {
                 count = "party";
             }
             $results_count.html("<hr><div class='alert alert-danger lead' role='alert'>Found <strong>" + matches.length + "</strong> " + count + "</div>");
-            $loading.html("");
+            var target = $("#" + matches[0].event_details.id);
+            $('html, body').animate({
+                scrollTop: target.offset().top - 70
+            }, 'fast');
+            $loader.html("");
         });
 
         $('input[type=text]').bind('keypress', function(e) {
@@ -312,7 +341,8 @@ var get12Hour = function(timestring) {
                    $submit_button.click();
                }
         });
-    };
+            $loader.html("");
+        };
 
     var getSearchState = function() {
         var geo = "";
@@ -337,8 +367,9 @@ var get12Hour = function(timestring) {
         $.getJSON(data_url, function(d) {
             // function to return user lat/lng, if geolocation is available and they opt in
             var getCoords = function(callback) {
+                $loader.html("<i class='fa fa-cog fa-spin'></i>");
                 if (navigator.geolocation) {
-                    navigator.geolocation.watchPosition(callback, declined_geocoding);
+                  navigator.geolocation.watchPosition(callback, declined_geocoding);
                 } else {
                     callback(null);
                 }
@@ -346,21 +377,18 @@ var get12Hour = function(timestring) {
             var declined_geocoding = function() {
                 $filter_wrapper.show();
                 init(d, null, null);
+                $loader.html("");
             };
             getCoords(function(position) {
               if(position !== null) {
-                  $loading.html("<i class='fa fa-cog fa-spin'></i>");
                   var user_lat = position.coords.latitude;
                   var user_lng = position.coords.longitude;
                   $geo_search_wrapper.show();
                   init(d, user_lat, user_lng);
                   $filter_wrapper.show();
-                  $loading.html('');
               } else {
-                  $loading.html("<i class='fa fa-cog fa-spin'></i>");
                   init(d, null, null);
                   $filter_wrapper.show();
-                  $loading.html('');
               }
             });
         });
