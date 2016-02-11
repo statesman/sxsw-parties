@@ -10,16 +10,15 @@
 @import "type";
 @import "utils";
 
+html, body {
+    background:black;
+}
+
 .container {
   @media (min-width: @screen-sm-min) {
     padding-left: 75px;
     padding-right: 75px;
   }
-}
-
-body {
-    background-image: url('../assets/bg_out.png');
-    background-size: cover;
 }
 
 .navbar{
@@ -60,9 +59,19 @@ div.checkbox {
     padding: 20px;
 }
 
-
-#results_count, #submit_button {
+#submit_button, #clear_button {
     margin-top:20px;
+}
+
+.legal_wrap {
+    background: black;
+    color: white;
+    margin:0;
+    padding:10px;
+}
+
+#results_count {
+    display:none;
 }
 
 #more_filter_click {
@@ -89,8 +98,9 @@ div.checkbox {
     color: white;
 }
 
-.interactive-header {
+.interactive-headers {
     padding:20px;
     background: #eee;
     box-shadow: 0 0 5px #ccc;
+    margin-bottom:30px;
 }

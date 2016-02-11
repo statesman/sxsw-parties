@@ -7,7 +7,7 @@
   $meta = array(
     "title" => "SXSW side parties | Statesman.com",
     "description" => "Your guide to the best side parties at SXSW 2016.",
-    "shortcut_icon" => "http://media.cmgdigital.com/shared/media/2015-11-16-11-32-05/web/site/www_mystatesman_com/images/favicon.ico",
+    "shortcut_icon" => "http://media.cmgdigital.com/shared/theme-assets/242014/www.austin360.com_8bc327bbc45a4eafb5625408192c5ff6.ico",
     "apple_touch_icon" => "http://media.cmgdigital.com/shared/theme-assets/242014/www.statesman.com_fa2d2d6e73614535b997734c7e7d2287.png",
     "url" => "http://projects.statesman.com/sxsw/",
     "twitter" => "statesman"
@@ -24,14 +24,14 @@
 
   <meta property="og:title" content="<?php print $meta['title']; ?>"/>
   <meta property="og:description" content="<?php print $meta['description']; ?>"/>
-  <meta property="og:image" id="fb_img_meta" content="assets/bg_thumb.png"/>
+  <meta property="og:image" id="fb_img_meta" content="" />
   <meta property="og:url" content="<?php print $meta['url']; ?>"/>
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@<?php print $meta['twitter']; ?>" />
   <meta name="twitter:title" content="<?php print $meta['title']; ?>" />
   <meta name="twitter:description" content="<?php print $meta['description']; ?>" />
-  <meta name="twitter:image" id="tw_img_meta" content="assets/bg_thumb.png" />
+  <meta name="twitter:image" id="tw_img_meta" content="" />
   <meta name="twitter:url" content="<?php print $meta['url']; ?>" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -77,7 +77,10 @@
   <article class="container">
 
     <div class="row main">
-      <div class="col-lg-6 interactive-header">
+
+      <div class="col-lg-5">
+          <div class="interactive-headers">
+
       <h1 id="pagetitle" style="font-weight:bold;">Your unofficial SXSW party guide</h1>
 
       <p class="author">By So Andso</p>
@@ -85,18 +88,13 @@
 
       <p class="lead" id="loading"></p>
 
-      <div id="filter_wrapper">
+      </div>
 
-      <hr>
+          <div class="interactive-headers" id="filter_wrapper">
+              <h3 class="bold" style="margin-top:0;">Search</h3>
 
-              <h2 class="bold">Search
-                  <span class="pull-right">
-                      <button type="button" class="btn btn-default btn-xs" id="clear_button">
-                          <i class="fa fa-times-circle"></i> Clear
-                      </button>
-                  </span>
-              </h2>
-      <div id="filter_forms">
+
+      <div id="filter_forms" style="margin-top:10px;">
 
 <div class="row">
 
@@ -187,6 +185,8 @@
         </a>
     </p>
 
+    <div class="clearfix"></div>
+
     <div id="more_filters" style="display:none;">
 
         <div class="form-group" style="margin-top:10px;">
@@ -207,14 +207,25 @@
 
       </div>
 
-<button class="btn btn-primary btn-lg" type="button" id="submit_button">Go &raquo;</button>
 
-<div id="results_count"></div>
+<button class="btn btn-default btn-lg" type="button" id="clear_button">
+    <i class="fa fa-times-circle"></i> Clear
+</button>
+
+<button type="button" class="btn btn-primary btn-lg pull-right" id="submit_button">
+    Go &raquo;
+</button>
+
+
 </div>
 
-            </div>
+  <div class="interactive-headers" id="results_count"></div>
 
-      <div class="col-lg-5 col-lg-offset-1">
+</div>
+
+
+
+      <div class="col-lg-6 col-lg-offset-1">
           <div id="outlist"></div>
     </div>
 

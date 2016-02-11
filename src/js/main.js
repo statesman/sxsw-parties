@@ -187,9 +187,39 @@ var get12Hour = function(timestring) {
       }
     };
 
+    // main function
     var init = function(data, latitude, longitude) {
 
-        //toggle_filters);
+        // serve up a random background image if not on a small viewport, set meta share images
+        var viewport_width = $(window).width();
+
+        // img files are slugged bg-sm-1, bg-md-1, bg-lg-1, etc., and we have eight of them
+        var randBetween = function(min, max) {
+          return Math.floor(Math.random() * (max - min)) + min;
+        };
+
+        var random_number = randBetween(1,8).toString();
+
+        $('#fb_img_meta').attr('content', 'assets/bg-sm-' + random_number + '.png');
+        $('#tw_img_meta').attr('content', 'assets/bg-sm-' + random_number + '.png');
+
+        if (viewport_width >= 600 && viewport_width < 1024) {
+            $('html body').css({
+                'backgroundImage': 'url("assets/bg-md-' + random_number + '.png")',
+                'backgroundRepeat': 'no-repeat',
+                'backgroundSize': '100%',
+                'backgroundPosition': 'center top'
+            })
+        } else {
+            $('html body').css({
+                'backgroundImage': 'url(assets/bg-lg-' + random_number + '.png)',
+                'backgroundRepeat': 'no-repeat',
+                'backgroundSize': '100%',
+                'backgroundPosition': 'center top'
+            });
+        }
+
+        // smooth scroll to anchor links
         $('a[href^="#"]').on('click', function(e) {
             var target = $( $(this).attr('href') );
             if( target.length ) {
@@ -206,7 +236,7 @@ var get12Hour = function(timestring) {
             $('input[type=checkbox]').attr('checked', false);
             $('select option:eq(0)').prop('selected', true);
             $list.html('');
-            $results_count.html('');
+            $results_count.hide();
         };
 
         // function to toggle additional filters
@@ -214,8 +244,6 @@ var get12Hour = function(timestring) {
             $more_filters.toggle();
             $toggle_options.toggle();
         };
-
-        var time_for_SXSW = isItSXSW();
 
         $clear_button.on('click', clear_filters);
         $('#more_filter_click').on('click', toggle_filters);
@@ -231,14 +259,16 @@ var get12Hour = function(timestring) {
                   venue_details: _.findWhere(data.venues, {"id": record.venue})
               }];
               $list.html(template(data_to_template));
-              $results_count.html("<hr><div class='alert alert-danger lead' role='alert'>Found <strong>1</strong> party</div>");
+              $results_count.html("<div class='alert alert-danger lead' role='alert'>Found <strong>1</strong> party</div>").show();
               $(".comment").shorten();
               if (record.poster && record.poster !== "") {
-                  $('fb_img_meta').attr('content', record.poster);
-                  $('tw_img_meta').attr('content', record.poster);
+                  $('#fb_img_meta').attr('content', record.poster);
+                  $('#tw_img_meta').attr('content', record.poster);
               }
           }
         }
+
+        var time_for_SXSW = isItSXSW();
 
         if (time_for_SXSW) {
             var d = new Date();
@@ -327,7 +357,7 @@ var get12Hour = function(timestring) {
             if (matches.length === 1) {
                 count = "party";
             }
-            $results_count.html("<hr><div class='alert alert-danger lead' role='alert'>Found <strong>" + matches.length + "</strong> " + count + "</div>");
+            $results_count.html("<div class='alert alert-danger lead' role='alert'>Found <strong>" + matches.length + "</strong> " + count + "</div>").show();
             var target = $("#" + matches[0].event_details.id);
             $('html, body').animate({
                 scrollTop: target.offset().top - 70

@@ -50,6 +50,7 @@ module.exports = function(grunt) {
           'public/dist/scripts.js': [
             'bower_components/jquery/dist/jquery.js',
             'bower_components/underscore/underscore-min.js',
+            'bower_components/masonry/dist/masonry.pkgd.min.js',
             'src/js/main.js'
           ]
         }
