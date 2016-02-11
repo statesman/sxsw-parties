@@ -204,14 +204,14 @@ var get12Hour = function(timestring) {
         $('#tw_img_meta').attr('content', 'assets/bg-sm-' + random_number + '.png');
 
         if (viewport_width >= 600 && viewport_width < 1024) {
-            $('html body').css({
+            $('body').css({
                 'backgroundImage': 'url("assets/bg-md-' + random_number + '.png")',
                 'backgroundRepeat': 'no-repeat',
                 'backgroundSize': '100%',
                 'backgroundPosition': 'center top'
-            })
-        } else {
-            $('html body').css({
+            });
+        } else if (viewport_width >= 1024) {
+            $('body').css({
                 'backgroundImage': 'url(assets/bg-lg-' + random_number + '.png)',
                 'backgroundRepeat': 'no-repeat',
                 'backgroundSize': '100%',
