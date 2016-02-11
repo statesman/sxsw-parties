@@ -45,24 +45,29 @@
   <?php include "includes/metrics-head.inc"; ?>
 
 </head>
-<body>
+<body data-spy="scroll" data-target=".navbar-scroller">
 <nav class="navbar navbar-default navbar-fixed-top" role="navigaton">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="http://www.austin360.com/" target="_blank">
-        <img width="122" height="50" src="assets/logo_austin360_color.png">
-      </a>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      <a class="navbar-brand" href="http://www.austin360.com/" target="_blank">
+        <img width="122" height="50" src="assets/logo_austin360_color.png">
+      </a>
+      <div class="navbar-header" id="search_and_spinner">
+          <a class="navbar-text" href="#filter_wrapper">Search</a>&emsp;<span class="navbar-text" id="loader"></span>
+      </div>
+
+
     </div>
+
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav" style="padding-top:5px;">
-        <li><a href="#filter_wrapper">Search</a></li>
-        <li><a href="#" id="loader"></a></li>
+
         <li class="visible-xs small-social"><a target="_blank" href="https://www.facebook.com/sharer.php?u=<?php echo urlencode($meta['url']); ?>"><i class="fa fa-facebook-square"></i></a><a target="_blank" href="https://twitter.com/intent/tweet?url=<?php echo urlencode($meta['url']); ?>&via=<?php print urlencode($meta['twitter']); ?>&text=<?php print urlencode($meta['title']); ?>"><i class="fa fa-twitter"></i></a><a target="_blank" href="https://plus.google.com/share?url=<?php echo urlencode($meta['url']); ?>"><i class="fa fa-google-plus"></i></a></li>
       </ul>
         <ul class="nav navbar-nav navbar-right social hidden-xs">
@@ -94,7 +99,7 @@
               <h3 class="bold" style="margin-top:0;">Search</h3>
 
 
-      <div id="filter_forms" style="margin-top:10px;">
+      <div id="filter_forms" style="margin-top:10px;" data-spy="affix">
 
 <div class="row">
 
@@ -219,11 +224,8 @@
 
 </div>
 
-  <div class="interactive-headers" id="results_count"></div>
-
+  <div id="results_count"></div>
 </div>
-
-
 
       <div class="col-lg-6 col-lg-offset-1">
           <div id="outlist"></div>
