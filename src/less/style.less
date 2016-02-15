@@ -12,6 +12,7 @@
 
 html, body {
     background:black;
+    overflow-x:hidden;
 }
 
 .container {
@@ -35,7 +36,7 @@ html, body {
 }
 
 .bold {
-    font-weight:bold;
+    font-weight:900;
 }
 
 .ital {
@@ -48,11 +49,23 @@ div.checkbox {
 
 .check_label {
     font-size:110%;
+    font-weight:normal;
 }
 
 .item {
     background: white;
-    margin-bottom: 30px;
+    margin: 15px;
+    width:30%;
+    float:left;
+}
+
+#splash {
+    color: white;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .item .inner-wrapper {
@@ -71,8 +84,10 @@ div.checkbox {
     #search_and_spinner {
         margin-top:15px;
     }
+    .item {
+        width:93%;
+    }
 }
-
 
 #results_count {
     margin-top:20px;
@@ -97,6 +112,12 @@ div.checkbox {
 
 #filter_wrapper, #geo_search_wrapper {
     display:none;
+}
+
+#searchbox {
+    background:#fafafa;
+    padding-top:50px;
+    padding-bottom:50px;
 }
 
 .sharebox a i {
