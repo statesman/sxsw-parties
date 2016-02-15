@@ -2,19 +2,19 @@
 var labelIt = function(item) {
   var ls = [];
   if (item.free_entry) {
-      ls.push('<span class="label label-success"><i class="fa fa-thumbs-up"></i></span>');
+      ls.push('<span class="label label-success" data-toggle="tooltip" data-placement="top" title="Free entry"><i class="fa fa-thumbs-up"></i></span>');
   }
   if (item.staff_pick) {
-      ls.push('<span class="label label-warning"><i class="fa fa-star"></i></span>');
+      ls.push('<span class="label label-warning" data-toggle="tooltip" data-placement="top" title="Staff pick"><i class="fa fa-star"></i></span>');
   }
   if (item.free_food) {
-      ls.push('<span class="label label-primary"><i class="fa fa-cutlery"></i></span>');
+      ls.push('<span class="label label-primary" data-toggle="tooltip" data-placement="top" title="Free food"><i class="fa fa-cutlery"></i></span>');
   }
   if (item.rsvp) {
-      ls.push('<span class="label label-info"><i class="fa fa-pencil"></i></span>');
+      ls.push('<span class="label label-info" data-toggle="tooltip" data-placement="top" title="RSVP required"><i class="fa fa-pencil"></i></span>');
   }
   if (item.official) {
-      ls.push('<span class="label label-danger"><i class="fa fa-shield"></i></span>');
+      ls.push('<span class="label label-danger" data-toggle="tooltip" data-placement="top" title="Badge required"><i class="fa fa-shield"></i></span>');
   }
   if (ls.length > 0) {
       return "<p>" + ls.join("&ensp;") + "</p>";
@@ -154,7 +154,6 @@ var get12Hour = function(timestring) {
     var $list = $("#outlist");
     var $loader = $("#loader");
     var $submit_button = $("#submit_button");
-    var $clear_button = $("#clear_button");
     var $event_filter = $("#event_search");
     var $venue_filter = $("#venue_search");
     var $band_filter = $("#band_search");
@@ -167,7 +166,9 @@ var get12Hour = function(timestring) {
     var $toggle_options = $(".toggle_options");
     var $geo_search_wrapper = $('#geo_search_wrapper');
     var $filter_wrapper = $('#filter_wrapper');
+    var $outlist_wrapper = $('#outlist_wrapper');
     var $results_count = $("#results_count");
+    var $bottom_matter = $('#bottom_matter');
 
     // set global template variable
     _.templateSettings.variable = "sxsw";
@@ -194,7 +195,6 @@ var get12Hour = function(timestring) {
         // img files are slugged bg-sm-1, bg-md-1, bg-lg-1, etc., and we have eight of them
 
         var viewport_width = $(window).width();
-        var viewport_height = $(window).height();
 
         var randBetween = function(min, max) {
           return Math.floor(Math.random() * (max - min)) + min;
@@ -202,20 +202,23 @@ var get12Hour = function(timestring) {
 
         var random_number = randBetween(1,8).toString();
 
-        $('#splash_wrap').css({
-            'height': viewport_height,
-        });
-
         if (viewport_width >= 600 && viewport_width < 1024) {
-            $('#splash_wrap').css({
-                'backgroundImage': 'linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url("assets/bg-md-' + random_number + '.png")',
+            $('#top_matter').css({
+                'backgroundImage': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 1)), url("assets/bg-md-' + random_number + '.png")',
                 'backgroundRepeat': 'no-repeat',
                 'backgroundSize': '100%',
                 'backgroundPosition': 'center top'
             });
         } else if (viewport_width >= 1024) {
-            $('#splash_wrap').css({
-                'backgroundImage': 'linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url(assets/bg-lg-' + random_number + '.png)',
+            $('#top_matter').css({
+                'backgroundImage': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 1)), url(assets/bg-lg-' + random_number + '.png)',
+                'backgroundRepeat': 'no-repeat',
+                'backgroundSize': '100%',
+                'backgroundPosition': 'center top'
+            });
+        } else {
+            $('#top_matter').css({
+                'backgroundImage': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 1)), url(assets/bg-sm-' + random_number + '.png)',
                 'backgroundRepeat': 'no-repeat',
                 'backgroundSize': '100%',
                 'backgroundPosition': 'center top'
@@ -239,7 +242,7 @@ var get12Hour = function(timestring) {
             $('input[type=checkbox]').attr('checked', false);
             $('select option:eq(0)').prop('selected', true);
             $list.html('');
-            $results_count.hide();
+            $bottom_matter.hide();
         };
 
         // function to toggle additional filters
@@ -248,7 +251,6 @@ var get12Hour = function(timestring) {
             $toggle_options.toggle();
         };
 
-        $clear_button.on('click', clear_filters);
         $('#more_filter_click').on('click', toggle_filters);
         $("#total_count").html(addCommas(data.events.length));
 
@@ -261,13 +263,11 @@ var get12Hour = function(timestring) {
                   event_details: record,
                   venue_details: _.findWhere(data.venues, {"id": record.venue})
               }];
+
               $list.html(template(data_to_template));
-              $results_count.html("<div class='alert alert-success lead' role='alert'>Found <strong>1</strong> party</div>").show();
+              $results_count.html("<div class='container'><h1>Found <strong>1</strong> party</h1></div>").show();
               $(".comment").shorten();
-              if (record.poster && record.poster !== "") {
-                  $('#fb_img_meta').attr('content', record.poster);
-                  $('#tw_img_meta').attr('content', record.poster);
-              }
+              $('[data-toggle="tooltip"]').tooltip();
           }
         }
 
@@ -356,6 +356,15 @@ var get12Hour = function(timestring) {
 
             $list.html(template(matches));
             $(".comment").shorten();
+            $('[data-toggle="tooltip"]').tooltip();
+
+            var $grid = $('.grid').masonry({
+                itemSelector: '.grid-item'
+            });
+
+            $grid.imagesLoaded().progress( function() {
+              $grid.masonry('layout');
+            });
 
             var count = "parties";
             var alert = "success";
@@ -368,7 +377,11 @@ var get12Hour = function(timestring) {
                 alert = "danger";
             }
 
-            $results_count.html("<div class='lead alert alert-" + alert + "' role='alert'>Found <strong>" + matches.length + "</strong> " + count + "</div>").show();
+            $results_count.html("<div class='container'><hr><h2>Found <strong>" + matches.length + "</strong> " + count + "</h2><button class='btn btn-default btn-xs' type='button' id='clear_button' style='margin-top:0;'><i class='fa fa-times-circle'></i> Clear</button></div>");
+            $bottom_matter.show();
+
+            $("#clear_button").on('click', clear_filters);
+
             var target = $("#results_count");
             $('html, body').animate({
                 scrollTop: target.offset().top - 70

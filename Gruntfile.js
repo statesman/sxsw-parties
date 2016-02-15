@@ -53,8 +53,10 @@ module.exports = function(grunt) {
             'bower_components/bootstrap/js/collapse.js',
             'bower_components/bootstrap/js/dropdown.js',
             'bower_components/bootstrap/js/transition.js',
+            'bower_components/bootstrap/js/tooltip.js',
             'bower_components/underscore/underscore-min.js',
             'bower_components/masonry/dist/masonry.pkgd.min.js',
+            'bower_components/imagesloaded/imagesloaded.pkgd.min.js',
             'src/js/main.js'
           ]
         }
