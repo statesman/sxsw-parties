@@ -190,29 +190,32 @@ var get12Hour = function(timestring) {
     // main function
     var init = function(data, latitude, longitude) {
 
-        // serve up a random background image if not on a small viewport, set meta share images
-        var viewport_width = $(window).width();
-
+        // serve up a random background image if not on a small viewport
         // img files are slugged bg-sm-1, bg-md-1, bg-lg-1, etc., and we have eight of them
+
+        var viewport_width = $(window).width();
+        var viewport_height = $(window).height();
+
         var randBetween = function(min, max) {
           return Math.floor(Math.random() * (max - min)) + min;
         };
 
         var random_number = randBetween(1,8).toString();
 
-        $('#fb_img_meta').attr('content', 'assets/bg-sm-' + random_number + '.png');
-        $('#tw_img_meta').attr('content', 'assets/bg-sm-' + random_number + '.png');
+        $('#splash_wrap').css({
+            'height': viewport_height,
+        });
 
         if (viewport_width >= 600 && viewport_width < 1024) {
-            $('body').css({
-                'backgroundImage': 'url("assets/bg-md-' + random_number + '.png")',
+            $('#splash_wrap').css({
+                'backgroundImage': 'linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url("assets/bg-md-' + random_number + '.png")',
                 'backgroundRepeat': 'no-repeat',
                 'backgroundSize': '100%',
                 'backgroundPosition': 'center top'
             });
         } else if (viewport_width >= 1024) {
-            $('body').css({
-                'backgroundImage': 'url(assets/bg-lg-' + random_number + '.png)',
+            $('#splash_wrap').css({
+                'backgroundImage': 'linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url(assets/bg-lg-' + random_number + '.png)',
                 'backgroundRepeat': 'no-repeat',
                 'backgroundSize': '100%',
                 'backgroundPosition': 'center top'
@@ -259,7 +262,7 @@ var get12Hour = function(timestring) {
                   venue_details: _.findWhere(data.venues, {"id": record.venue})
               }];
               $list.html(template(data_to_template));
-              $results_count.html("<div class='alert alert-danger lead' role='alert'>Found <strong>1</strong> party</div>").show();
+              $results_count.html("<div class='alert alert-success lead' role='alert'>Found <strong>1</strong> party</div>").show();
               $(".comment").shorten();
               if (record.poster && record.poster !== "") {
                   $('#fb_img_meta').attr('content', record.poster);
@@ -353,12 +356,20 @@ var get12Hour = function(timestring) {
 
             $list.html(template(matches));
             $(".comment").shorten();
+
             var count = "parties";
+            var alert = "success";
+
             if (matches.length === 1) {
                 count = "party";
             }
-            $results_count.html("<div class='alert alert-danger lead' role='alert'>Found <strong>" + matches.length + "</strong> " + count + "</div>").show();
-            var target = $("#" + matches[0].event_details.id);
+
+            if (matches.length === 0) {
+                alert = "danger";
+            }
+
+            $results_count.html("<div class='lead alert alert-" + alert + "' role='alert'>Found <strong>" + matches.length + "</strong> " + count + "</div>").show();
+            var target = $("#results_count");
             $('html, body').animate({
                 scrollTop: target.offset().top - 70
             }, 'fast');
@@ -399,7 +410,7 @@ var get12Hour = function(timestring) {
             var getCoords = function(callback) {
                 $loader.html("<i class='fa fa-cog fa-spin'></i>");
                 if (navigator.geolocation) {
-                  navigator.geolocation.watchPosition(callback, declined_geocoding);
+                  navigator.geolocation.getCurrentPosition(callback, declined_geocoding);
                 } else {
                     callback(null);
                 }

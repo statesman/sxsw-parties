@@ -9,6 +9,7 @@
     "description" => "Your guide to the best side parties at SXSW 2016.",
     "shortcut_icon" => "http://media.cmgdigital.com/shared/theme-assets/242014/www.austin360.com_8bc327bbc45a4eafb5625408192c5ff6.ico",
     "apple_touch_icon" => "http://media.cmgdigital.com/shared/theme-assets/242014/www.statesman.com_fa2d2d6e73614535b997734c7e7d2287.png",
+    "img" => "assets/bg-sm-" . rand(1,8) . ".png", # set share image dynamically
     "url" => "http://projects.statesman.com/sxsw/",
     "twitter" => "statesman"
   );
@@ -24,21 +25,21 @@
 
   <meta property="og:title" content="<?php print $meta['title']; ?>"/>
   <meta property="og:description" content="<?php print $meta['description']; ?>"/>
-  <meta property="og:image" id="fb_img_meta" content="" />
+  <meta property="og:image" id="fb_img_meta" content="<?php print $meta['img']; ?>" />
   <meta property="og:url" content="<?php print $meta['url']; ?>"/>
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@<?php print $meta['twitter']; ?>" />
   <meta name="twitter:title" content="<?php print $meta['title']; ?>" />
   <meta name="twitter:description" content="<?php print $meta['description']; ?>" />
-  <meta name="twitter:image" id="tw_img_meta" content="" />
+  <meta name="twitter:image" id="tw_img_meta" content="<?php print $meta['img']; ?>" />
   <meta name="twitter:url" content="<?php print $meta['url']; ?>" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="dist/style.css">
 
   <link href='http://fonts.googleapis.com/css?family=Lusitana:400,700,900' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,900' rel='stylesheet' type='text/css'>
 
   <?php /* CMG advertising and analytics */ ?>
   <?php include "includes/advertising.inc"; ?>
@@ -59,9 +60,8 @@
         <img width="122" height="50" src="assets/logo_austin360_color.png">
       </a>
       <div class="navbar-header" id="search_and_spinner">
-          <a class="navbar-text" href="#filter_wrapper">Search</a>&emsp;<span class="navbar-text" id="loader"></span>
+          <a class="navbar-text" href="#searchbox">Search</a>&emsp;<span class="navbar-text" id="loader"></span>
       </div>
-
 
     </div>
 
@@ -79,161 +79,131 @@
   </div>
 </nav>
 
-  <article class="container">
+<article>
 
-    <div class="row main">
-
-      <div class="col-lg-5">
-          <div class="interactive-headers">
-
-      <h1 id="pagetitle" style="font-weight:bold;">Your unofficial SXSW party guide</h1>
-
-      <p class="author">By So Andso</p>
-      <p>Lucas ipsum dolor sit amet boba calrissian amidala sith dooku solo moff organa obi-wan windu. There are <span id="total_count"></span> parties in this guide. Gamorrean binks wedge darth. Mon darth mon kit ponda solo. Got a party to add? <a href="mailto:rcorbelli@statesman.com?subject=SXSW%20Party%20Guide">Let us know</a>.</p>
-
-      <p class="lead" id="loading"></p>
-
-      </div>
-
-          <div class="interactive-headers" id="filter_wrapper">
-              <h3 class="bold" style="margin-top:0;">Search</h3>
-
-
-      <div id="filter_forms" style="margin-top:10px;" data-spy="affix">
-
-<div class="row">
-
-<div class="col-md-6">
-<div class="checkbox">
-<label for="free_entry">
-    <input type="checkbox" id="free_entry">
-    <span class="label label-success check_label"><i class="fa fa-thumbs-up"></i>&emsp;Free entry</span>
-</label>
-</div>
-
-<div class="checkbox">
-<label for="free_food">
-    <input type="checkbox" id="free_food">
-    <span class="label label-primary check_label"><i class="fa fa-cutlery"></i>&emsp;Free food</span>
-</label>
-</div>
-
-<div class="checkbox">
-<label for="rsvp">
-    <input type="checkbox" id="rsvp">
-    <span class="label label-info check_label"><i class="fa fa-pencil"></i>&emsp;RSVP required</span>
-</label>
-</div>
-
-</div>
-
-<div class="col-md-6">
-
-<div class="checkbox">
-<label for="staff_pick">
-    <input type="checkbox" id="staff_pick">
-    <span class="label label-warning check_label"><i class="fa fa-star"></i>&emsp;Staff pick</span>
-</label>
-</div>
-
-<div class="checkbox">
-<label for="official">
-    <input type="checkbox" id="official">
-    <span class="label label-danger check_label"><i class="fa fa-shield"></i>&emsp;Badge required</span>
-</label>
-</div>
-
-
-</div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-
-<div class="form-group" style="margin-top:10px;">
-    <label for="day_search">Day</label>
-    <select class="form-control input-lg" id="day_search">
-        <option value="10" selected="selected">Thu (March 10)</option>
-        <option value="11">Fri (March 11)</option>
-        <option value="12">Sat (March 12)</option>
-        <option value="13">Sun (March 13)</option>
-        <option value="14">Mon (March 14)</option>
-        <option value="15">Tue (March 15)</option>
-        <option value="16">Wed (March 16)</option>
-        <option value="17">Thu (March 17)</option>
-        <option value="18">Fri (March 18)</option>
-        <option value="19">Sat (March 19)</option>
-        <option value="20">Sun (March 20)</option>
-    </select>
-</div>
-
-<div id="geo_search_wrapper">
-    <div class="form-group" style="margin-top:10px;">
-        <label for="geo_search">Nearby</label>
-        <select class="form-control input-lg" id="geo_search">
-            <option value="" selected="selected">All</option>
-            <option value="1">Within 1 mile of me</option>
-            <option value="0.75">Within 3/4 mile of me</option>
-            <option value="0.5">Within 1/2 mile of me</option>
-            <option value="0.25">Within 1/4 mile of me</option>
-        </select>
+    <div id="splash_wrap">
+        <div id="splash">
+            <h1>Your unofficial SXSW party guide</h1>
+              <p class="lead">Lucas ipsum dolor sit amet boba calrissian amidala sith dooku solo moff organa obi-wan windu, where you can <a href="#searchbox">search</a> <span id="total_count"></span> parties in this guide. Gamorrean binks wedge darth. Mon darth mon kit ponda solo. Got a party to add? <a href="mailto:rcorbelli@statesman.com?subject=SXSW%20Party%20Guide">Let us know</a>.</p>
+          </div>
     </div>
-</div>
-
-    </div>
-</div>
-
-    <p class="small pull-right">
-        <a id="more_filter_click">
-            <span class="toggle_options">More options &raquo;</span>
-            <span class="toggle_options" style="display:none;">&laquo; Fewer options</span>
-        </a>
-    </p>
 
     <div class="clearfix"></div>
 
-    <div id="more_filters" style="display:none;">
+    <div id="searchbox">
+        <div class="container">
+            <h1 style="font-weight:400;">Find a party</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="checkbox">
+                        <label for="free_entry">
+                        <input type="checkbox" id="free_entry">
+                        <span class="label label-success check_label"><i class="fa fa-thumbs-up"></i>&emsp;Free entry</span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="free_food">
+                        <input type="checkbox" id="free_food">
+                        <span class="label label-primary check_label"><i class="fa fa-cutlery"></i>&emsp;Free food</span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="rsvp">
+                        <input type="checkbox" id="rsvp">
+                        <span class="label label-info check_label"><i class="fa fa-pencil"></i>&emsp;RSVP required</span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="staff_pick">
+                        <input type="checkbox" id="staff_pick">
+                        <span class="label label-warning check_label"><i class="fa fa-star"></i>&emsp;Staff pick</span>
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label for="official">
+                        <input type="checkbox" id="official">
+                        <span class="label label-danger check_label"><i class="fa fa-shield"></i>&emsp;Badge required</span>
+                        </label>
+                    </div>
+                    <button class="btn btn-default btn-xs" type="button" id="clear_button" style="margin-top:20px;">
+                        <i class="fa fa-times-circle"></i> Clear
+                    </button>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="margin-top:10px;">
+                        <label for="day_search">Day</label>
+                        <select class="form-control input-lg" id="day_search">
+                            <option value="10" selected="selected">Thu (March 10)</option>
+                            <option value="11">Fri (March 11)</option>
+                            <option value="12">Sat (March 12)</option>
+                            <option value="13">Sun (March 13)</option>
+                            <option value="14">Mon (March 14)</option>
+                            <option value="15">Tue (March 15)</option>
+                            <option value="16">Wed (March 16)</option>
+                            <option value="17">Thu (March 17)</option>
+                            <option value="18">Fri (March 18)</option>
+                            <option value="19">Sat (March 19)</option>
+                            <option value="20">Sun (March 20)</option>
+                        </select>
+                    </div>
+                    <div id="geo_search_wrapper">
+                        <div class="form-group" style="margin-top:10px;">
+                            <label for="geo_search">Nearby</label>
+                            <select class="form-control input-lg" id="geo_search">
+                                <option value="" selected="selected">All</option>
+                                <option value="1">Within 1 mile of me</option>
+                                <option value="0.75">Within 3/4 mile of me</option>
+                                <option value="0.5">Within 1/2 mile of me</option>
+                                <option value="0.25">Within 1/4 mile of me</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p class="small pull-right">
+                        <a id="more_filter_click">
+                            <span class="toggle_options">More options &raquo;</span>
+                            <span class="toggle_options" style="display:none;">&laquo; Fewer options</span>
+                        </a>
+                    </p>
+                    <div class="clearfix"></div>
+                    <div id="more_filters" style="display:none;">
+                        <div class="form-group" style="margin-top:10px;">
+                            <label for="event_search">Event name contains</label>
+                            <input type="text" class="form-control input-lg" id="event_search" placeholder="Looking for a specific event?">
+                        </div>
+                        <div class="form-group" style="margin-top:10px;">
+                            <label for="venue_search">Venue name contains</label>
+                            <input type="text" class="form-control input-lg" id="venue_search" placeholder="A venue?">
+                        </div>
+                        <div class="form-group" style="margin-top:10px;">
+                            <label for="band_search">Band names contain</label>
+                            <input type="text" class="form-control input-lg" id="band_search" placeholder="A band?">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-lg pull-right" id="submit_button">
+                        Search &raquo;
+                    </button>
+                </div>
+                </div> <!-- //.row -->
+        </div> <!-- //.container -->
+    </div> <!-- //#searchbox -->
 
-        <div class="form-group" style="margin-top:10px;">
-            <label for="event_search">Event name contains</label>
-            <input type="text" class="form-control input-lg" id="event_search" placeholder="Looking for a specific event?">
+
+    <div class="container">
+            <div class="col-lg-12">
+                <div id="results_count"></div>
         </div>
-
-        <div class="form-group" style="margin-top:10px;">
-            <label for="venue_search">Venue name contains</label>
-            <input type="text" class="form-control input-lg" id="venue_search" placeholder="A venue?">
-        </div>
-
-        <div class="form-group" style="margin-top:10px;">
-            <label for="band_search">Band names contain</label>
-            <input type="text" class="form-control input-lg" id="band_search" placeholder="A band?">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="grid" id="outlist"></div>
+            </div>
         </div>
     </div>
 
-      </div>
-
-
-<button class="btn btn-default btn-lg" type="button" id="clear_button">
-    <i class="fa fa-times-circle"></i> Clear
-</button>
-
-<button type="button" class="btn btn-primary btn-lg pull-right" id="submit_button">
-    Go &raquo;
-</button>
-
-
-</div>
-
-  <div id="results_count"></div>
-</div>
-
-      <div class="col-lg-6 col-lg-offset-1">
-          <div id="outlist"></div>
-    </div>
+</article>
 
     <script type="text/html" class="template">
         <% _.each(sxsw, function(d) { %>
-            <div class="item" id="<%= d.event_details.id %>">
+            <div class="item grid-item" id="<%= d.event_details.id %>">
                 <div class="sharebox">
                     <p class="lead">
                         Share this party
@@ -241,7 +211,6 @@
                             <a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).tw %>" target="_blank"><i class="fa fa-twitter"></i></a>
                             &ensp;
                             <a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).fb %>" target="_blank"><i class="fa fa-facebook-square"></i></a>
-
                     </p>
                 </div>
 
@@ -269,7 +238,7 @@
 
                 <% if (d.event_details.bands && d.event_details.bands !== "") { %>
                     <hr>
-                <p><span class="bold">Bands</span><br><%= d.event_details.bands %></p>
+                <p class="comment"><span class="bold">Bands</span><br><%= d.event_details.bands %></p>
                 <% }; %>
 
                 <hr>
