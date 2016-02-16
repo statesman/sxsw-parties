@@ -6,6 +6,15 @@ module.exports = function(grunt) {
   // Project configuration
   grunt.initConfig({
 
+    /*
+        // run shell script to grab latest data
+        run: {
+            tool: {
+              cmd: './get-data-dump.sh',
+            }
+        },
+    */
+
     // Copy FontAwesome files to the fonts/ directory
     copy: {
       fonts: {

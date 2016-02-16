@@ -22,6 +22,9 @@ The `src` folder is for components that are used by grunt tasks and copied into 
 * js: for project specific files. `main.js` will get minified into the dist folder.
 * less: for less css source files, based on [bootstrap](http://getbootstrap.com/getting-started/).
 
+### Fetch data
+Run `./get-data-dump.sh` to pull a clean copy of the production database into `public/data.json`. You'll need to set up Heroku Toolbelt and [csvkit](http://csvkit.readthedocs.org/en/540/) for this to work.
+
 ## Configurations
 
 ### ftpush
