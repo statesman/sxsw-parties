@@ -148,7 +148,8 @@ var get12Hour = function(timestring) {
     // global variables
     var sxsw_start = 'March 10, 2016';
     var sxsw_end = 'March 20, 2016';
-    var data_url = 'data.json';
+    var data_url = 'data-test.json';
+//    var data_url = 'data.json';
 
     // cache dom references
     var $list = $("#outlist");
@@ -265,7 +266,11 @@ var get12Hour = function(timestring) {
               }];
 
               $list.html(template(data_to_template));
-              $results_count.html("<div class='container'><h1>Found <strong>1</strong> party</h1></div>").show();
+              $results_count.html("<div class='container'><hr><h2>Found <strong>1</strong> party</h2><button class='btn btn-default btn-xs' type='button' id='clear_button' style='margin-top:0;'><i class='fa fa-times-circle'></i> Clear</button></div>");
+              $bottom_matter.show();
+
+              $("#clear_button").on('click', clear_filters);
+
               $(".comment").shorten();
               $('[data-toggle="tooltip"]').tooltip();
           }
