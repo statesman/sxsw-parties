@@ -15,8 +15,14 @@ html, body {
     overflow-x:hidden;
 }
 
-.container {
-  @media (min-width: @screen-sm-min) {
+article {
+    margin-top:60px;
+}
+
+#splash a, #splash article a:hover, #searchbox a, #searchbox article a:hover, .legal_wrap a, .legal_wrap a:hover {color:yellow;}
+
+@media (min-width: @screen-sm-min) {
+    .container {
     padding-left: 75px;
     padding-right: 75px;
   }
@@ -29,10 +35,13 @@ html, body {
     min-height:60px;
 }
 
-.navbar-brand { padding:5px 15px;}
+.navbar-brand {
+    padding:5px 15px;
+}
 
-.main {
-    margin-top:90px;
+#splash {
+    color:white;
+    padding-top:30px;
 }
 
 .bold {
@@ -43,32 +52,18 @@ html, body {
     font-style:italic;
 }
 
-div.checkbox {
-    margin-bottom:20px;
-}
-
 .check_label {
-    font-size:110%;
     font-weight:normal;
 }
 
-.item {
+.grid-item {
     background: white;
     margin: 15px;
-    width:30%;
-    float:left;
+    padding:0;
+    max-width:93%;
 }
 
-#splash {
-    color: white;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.item .inner-wrapper {
+.grid-item .inner-wrapper {
     padding: 20px;
 }
 
@@ -90,8 +85,8 @@ div.checkbox {
 }
 
 #results_count {
-    margin-top:20px;
-    display:none;
+    margin-bottom:20px;
+    color:white;
 }
 
 #more_filter_click {
@@ -106,7 +101,7 @@ div.checkbox {
     margin: 0;
     background: #C3082A;
     color: white;
-    padding:20px 20px 1px 20px;
+    padding:20px;
     vertical-align: middle;
 }
 
@@ -115,9 +110,8 @@ div.checkbox {
 }
 
 #searchbox {
-    background:#fafafa;
-    padding-top:50px;
-    padding-bottom:50px;
+    color:white;
+    padding-bottom:75px;
 }
 
 .sharebox a i {

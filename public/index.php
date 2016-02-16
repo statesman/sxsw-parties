@@ -79,22 +79,21 @@
   </div>
 </nav>
 
-<article>
+    <article>
 
-    <div id="splash_wrap">
-        <div id="splash">
+<div id="top_matter">
+
+    <div id="splash">
+        <div class="container">
             <h1>Your unofficial SXSW party guide</h1>
-              <p class="lead">Lucas ipsum dolor sit amet boba calrissian amidala sith dooku solo moff organa obi-wan windu, where you can <a href="#searchbox">search</a> <span id="total_count"></span> parties in this guide. Gamorrean binks wedge darth. Mon darth mon kit ponda solo. Got a party to add? <a href="mailto:rcorbelli@statesman.com?subject=SXSW%20Party%20Guide">Let us know</a>.</p>
-          </div>
+                <p class="lead">Search for <span id="total_count"></span> parties at SXSW 2016. Got a party to add? <a href="mailto:rcorbelli@statesman.com?subject=SXSW%20Party%20Guide">Let us know</a>.</p>
+        </div>
     </div>
-
-    <div class="clearfix"></div>
 
     <div id="searchbox">
         <div class="container">
-            <h1 style="font-weight:400;">Find a party</h1>
-            <div class="row">
-                <div class="col-md-4">
+                <div class="row">
+                <div class="col-xs-6 col-sm-4 col-md-2">
                     <div class="checkbox">
                         <label for="free_entry">
                         <input type="checkbox" id="free_entry">
@@ -113,6 +112,8 @@
                         <span class="label label-info check_label"><i class="fa fa-pencil"></i>&emsp;RSVP required</span>
                         </label>
                     </div>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-2">
                     <div class="checkbox">
                         <label for="staff_pick">
                         <input type="checkbox" id="staff_pick">
@@ -125,14 +126,11 @@
                         <span class="label label-danger check_label"><i class="fa fa-shield"></i>&emsp;Badge required</span>
                         </label>
                     </div>
-                    <button class="btn btn-default btn-xs" type="button" id="clear_button" style="margin-top:20px;">
-                        <i class="fa fa-times-circle"></i> Clear
-                    </button>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7 col-md-offset-1 col-xs-12">
                     <div class="form-group" style="margin-top:10px;">
                         <label for="day_search">Day</label>
-                        <select class="form-control input-lg" id="day_search">
+                        <select class="form-control" id="day_search">
                             <option value="10" selected="selected">Thu (March 10)</option>
                             <option value="11">Fri (March 11)</option>
                             <option value="12">Sat (March 12)</option>
@@ -149,7 +147,7 @@
                     <div id="geo_search_wrapper">
                         <div class="form-group" style="margin-top:10px;">
                             <label for="geo_search">Nearby</label>
-                            <select class="form-control input-lg" id="geo_search">
+                            <select class="form-control" id="geo_search">
                                 <option value="" selected="selected">All</option>
                                 <option value="1">Within 1 mile of me</option>
                                 <option value="0.75">Within 3/4 mile of me</option>
@@ -168,56 +166,63 @@
                     <div id="more_filters" style="display:none;">
                         <div class="form-group" style="margin-top:10px;">
                             <label for="event_search">Event name contains</label>
-                            <input type="text" class="form-control input-lg" id="event_search" placeholder="Looking for a specific event?">
+                            <input type="text" class="form-control" id="event_search" placeholder="Looking for a specific event?">
                         </div>
                         <div class="form-group" style="margin-top:10px;">
                             <label for="venue_search">Venue name contains</label>
-                            <input type="text" class="form-control input-lg" id="venue_search" placeholder="A venue?">
+                            <input type="text" class="form-control" id="venue_search" placeholder="A venue?">
                         </div>
                         <div class="form-group" style="margin-top:10px;">
                             <label for="band_search">Band names contain</label>
-                            <input type="text" class="form-control input-lg" id="band_search" placeholder="A band?">
+                            <input type="text" class="form-control" id="band_search" placeholder="A band?">
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary btn-lg pull-right" id="submit_button">
-                        Search &raquo;
-                    </button>
                 </div>
                 </div> <!-- //.row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-default pull-right" id="submit_button">
+                            Search &raquo;
+                        </button>
+                    </div>
+                </div>
+
+
         </div> <!-- //.container -->
     </div> <!-- //#searchbox -->
+</div> <!-- // #top_matter -->
 
+
+<div id="bottom_matter">
+    <div id="results_count"></div>
 
     <div class="container">
-            <div class="col-lg-12">
-                <div id="results_count"></div>
-        </div>
         <div class="row">
-            <div class="col-lg-12">
-                <div class="grid" id="outlist"></div>
-            </div>
+            <div class="grid" id="outlist"></div>
         </div>
     </div>
+</div>
 
-</article>
+
+    </article>
+
+
 
     <script type="text/html" class="template">
         <% _.each(sxsw, function(d) { %>
-            <div class="item grid-item" id="<%= d.event_details.id %>">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item" id="<%= d.event_details.id %>">
                 <div class="sharebox">
                     <p class="lead">
-                        Share this party
-                        &emsp;
-                            <a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).tw %>" target="_blank"><i class="fa fa-twitter"></i></a>
-                            &ensp;
-                            <a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).fb %>" target="_blank"><i class="fa fa-facebook-square"></i></a>
+                            <a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).tw %>" class="pull-left" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).fb %>" class="pull-right" target="_blank"><i class="fa fa-facebook-square"></i></a>
                     </p>
                 </div>
+                <div class="clearfix"></div>
 
                 <div class="inner-wrapper">
-                <h1 style="margin-top:0; font-weight:bold;">
+                <h2 style="margin-top:0; font-weight:bold;">
                     <%= d.event_details.name %>
-                </h1>
+                </h2>
                 <p class="ital">
                     March <%= d.event_details.date %>
                     &ensp;&bull;&ensp;
@@ -257,8 +262,6 @@
             </div>
         <% }); %>
     </script>
-
-  </article>
 
     <!-- bottom matter -->
     <?php include "includes/banner-ad.inc";?>
