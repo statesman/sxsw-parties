@@ -1,13 +1,13 @@
 <div class="clearfix" id="ads">
 	<div class="visible-xs hidden-sm hidden-md hidden-lg col-xs-12">
-		<div id='div-gpt-ad-1403295829614-3' class="center-block" style='width:320px; height:50px;'>
+		<div id='div-gpt-ad-1403295829614-3' class="center-block" style='width:100%; max-width:320px; height:50px;'>
 		<script type='text/javascript'>
 			googletag.cmd.push(function() { googletag.display('div-gpt-ad-1403295829614-3'); });
 		</script>
 		</div>
 	</div>
 	<div class="hidden-xs visible-sm visible-md visible-lg col-xs-12">
-		<div id='div-gpt-ad-1403295829614-1' class="center-block" style='width:728px; height:90px;'>
+		<div id='div-gpt-ad-1403295829614-1' class="center-block" style='width:100%; max-width:728px; height:90px;'>
 		<script type='text/javascript'>
 			googletag.cmd.push(function() { googletag.display('div-gpt-ad-1403295829614-1'); });
 		</script>

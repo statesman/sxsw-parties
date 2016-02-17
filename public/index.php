@@ -92,42 +92,14 @@
 
     <div id="searchbox">
         <div class="container">
-                <div class="row">
-                <div class="col-xs-6 col-sm-4 col-md-2">
-                    <div class="checkbox">
-                        <label for="free_entry">
-                        <input type="checkbox" id="free_entry">
-                        <span class="label label-success check_label"><i class="fa fa-thumbs-up"></i>&emsp;Free entry</span>
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label for="free_food">
-                        <input type="checkbox" id="free_food">
-                        <span class="label label-primary check_label"><i class="fa fa-cutlery"></i>&emsp;Free food</span>
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label for="rsvp">
-                        <input type="checkbox" id="rsvp">
-                        <span class="label label-info check_label"><i class="fa fa-pencil"></i>&emsp;RSVP required</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-4 col-md-2">
-                    <div class="checkbox">
-                        <label for="staff_pick">
-                        <input type="checkbox" id="staff_pick">
-                        <span class="label label-warning check_label"><i class="fa fa-star"></i>&emsp;Staff pick</span>
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label for="official">
-                        <input type="checkbox" id="official">
-                        <span class="label label-danger check_label"><i class="fa fa-shield"></i>&emsp;Badge required</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-7 col-md-offset-1 col-xs-12">
+                <button class="btn btn-success check_button" type="button" id="free_entry_button"><i class="fa fa-circle-o"></i> Free entry</button>
+                <button class="btn btn-primary check_button" type="button" id="free_food_button"><i class="fa fa-circle-o"></i> Free food</button>
+                <button class="btn btn-info check_button" type="button" id="rsvp_button"><i class="fa fa-circle-o"></i> RSVP required</button>
+                <button class="btn btn-warning check_button" type="button" id="staff_pick_button"><i class="fa fa-circle-o"></i> Staff pick</button>
+                <button class="btn btn-danger check_button" type="button" id="badge_req_button"><i class="fa fa-circle-o"></i> Badge required</button>
+
+                <div class="row" style="margin-top:20px;">
+                <div class="col-md-6 col-xs-12">
                     <div class="form-group" style="margin-top:10px;">
                         <label for="day_search">Day</label>
                         <select class="form-control" id="day_search">
@@ -144,6 +116,8 @@
                             <option value="20">Sun (March 20)</option>
                         </select>
                     </div>
+                </div>
+                <div class="col-md-6 col-xs-12">
                     <div id="geo_search_wrapper">
                         <div class="form-group" style="margin-top:10px;">
                             <label for="geo_search">Nearby</label>
@@ -156,12 +130,6 @@
                             </select>
                         </div>
                     </div>
-                    <p class="small pull-right">
-                        <a id="more_filter_click">
-                            <span class="toggle_options">More options &raquo;</span>
-                            <span class="toggle_options" style="display:none;">&laquo; Fewer options</span>
-                        </a>
-                    </p>
                     <div class="clearfix"></div>
                     <div id="more_filters" style="display:none;">
                         <div class="form-group" style="margin-top:10px;">
@@ -181,9 +149,15 @@
                 </div> <!-- //.row -->
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="button" class="btn btn-default pull-right" id="submit_button">
-                            Search &raquo;
-                        </button>
+                            <p class="small">
+                               <a id="more_filter_click">
+                                   <span class="toggle_options">More options &raquo;</span>
+                                   <span class="toggle_options" style="display:none;">&laquo; Fewer options</span>
+                               </a>
+                            </p>
+                            <button type="button" class="btn btn-default" id="submit_button">
+                                Search &raquo;
+                            </button>
                     </div>
                 </div>
 
@@ -192,6 +166,7 @@
     </div> <!-- //#searchbox -->
 </div> <!-- // #top_matter -->
 
+<?php include "includes/banner-ad.inc";?>
 
 <div id="bottom_matter">
     <div id="results_count"></div>
@@ -206,15 +181,12 @@
 
     </article>
 
-
-
     <script type="text/html" class="template">
         <% _.each(sxsw, function(d) { %>
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 grid-item" id="<%= d.event_details.id %>">
+            <div class="col-xs-12 col-sm-6 col-md-3 grid-item" id="<%= d.event_details.id %>">
                 <div class="sharebox">
                     <p class="lead">
-                            <a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).tw %>" class="pull-left" target="_blank"><i class="fa fa-twitter"></i></a>
-                            <a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).fb %>" class="pull-right" target="_blank"><i class="fa fa-facebook-square"></i></a>
+                            Share this party&emsp;<a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).tw %>" target="_blank"><i class="fa fa-twitter"></i></a>&ensp;<a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).fb %>" target="_blank"><i class="fa fa-facebook-square"></i></a>
                     </p>
                 </div>
                 <div class="clearfix"></div>
@@ -264,7 +236,6 @@
     </script>
 
     <!-- bottom matter -->
-    <?php include "includes/banner-ad.inc";?>
     <?php include "includes/legal.inc";?>
     <?php include "includes/project-metrics.inc"; ?>
     <?php include "includes/metrics.inc"; ?>

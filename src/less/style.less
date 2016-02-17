@@ -19,7 +19,14 @@ article {
     margin-top:60px;
 }
 
-#splash a, #splash article a:hover, #searchbox a, #searchbox article a:hover, .legal_wrap a, .legal_wrap a:hover {color:yellow;}
+#splash a,
+#splash article a:hover,
+#searchbox a,
+#searchbox article a:hover,
+.legal_wrap a,
+.legal_wrap a:hover {
+    color:yellow;
+}
 
 @media (min-width: @screen-sm-min) {
     .container {
@@ -58,17 +65,17 @@ article {
 
 .grid-item {
     background: white;
-    margin: 15px;
     padding:0;
-    max-width:93%;
+    max-width:94%;
+    margin: 10px;
 }
 
-.grid-item .inner-wrapper {
+.inner-wrapper {
     padding: 20px;
 }
 
 #submit_button, #clear_button {
-    margin-top:20px;
+    margin-top:10px;
 }
 
 #search_and_spinner {
@@ -78,9 +85,6 @@ article {
 @media (max-width: 768px) {
     #search_and_spinner {
         margin-top:15px;
-    }
-    .item {
-        width:93%;
     }
 }
 
@@ -93,6 +97,10 @@ article {
     cursor: pointer;
 }
 
+.check_button {
+    margin:3px;
+}
+
 .muted {
     color:#aaa;
 }
@@ -101,7 +109,7 @@ article {
     margin: 0;
     background: #C3082A;
     color: white;
-    padding:20px;
+    padding:20px 20px 1px 20px;
     vertical-align: middle;
 }
 
@@ -111,7 +119,7 @@ article {
 
 #searchbox {
     color:white;
-    padding-bottom:75px;
+    padding-bottom:15px;
 }
 
 .sharebox a i {

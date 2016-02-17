@@ -23,6 +23,18 @@ var labelIt = function(item) {
   }
 };
 
+// function to check/uncheck top button icons
+var checkItOut = function() {
+    var text = this.textContent.trim();
+    if ($(this).hasClass("checked")) {
+        $(this).removeClass("checked");
+        $(this).html("<i class='fa fa-circle-o'></i> " + text);
+    } else {
+        $(this).addClass("checked");
+        $(this).html("<i class='fa fa-check-circle-o'></i> " + text);
+    }
+};
+
 // function to add thousand-separator commas
 var addCommas = function(num) {
     num += '';
@@ -149,20 +161,22 @@ var get12Hour = function(timestring) {
     var sxsw_start = 'March 10, 2016';
     var sxsw_end = 'March 20, 2016';
     var data_url = 'data-test.json';
-//    var data_url = 'data.json';
+//  var data_url = 'data.json';
+//  http://djuiuzgub7yaf.cloudfront.net/aS_pGOEW4Q8snG_cS8oVZAUFwnU=/200x300/smart/
 
     // cache dom references
     var $list = $("#outlist");
     var $loader = $("#loader");
+    var $buttons = $('.check_button');
     var $submit_button = $("#submit_button");
     var $event_filter = $("#event_search");
     var $venue_filter = $("#venue_search");
     var $band_filter = $("#band_search");
-    var $free_entry = $("#free_entry");
-    var $free_food = $("#free_food");
-    var $rsvp = $("#rsvp");
-    var $staff_pick = $("#staff_pick");
-    var $official = $("#official");
+    var $free_entry = $("#free_entry_button");
+    var $free_food = $("#free_food_button");
+    var $rsvp = $("#rsvp_button");
+    var $staff_pick = $("#staff_pick_button");
+    var $official = $("#badge_req_button");
     var $more_filters = $("#more_filters");
     var $toggle_options = $(".toggle_options");
     var $geo_search_wrapper = $('#geo_search_wrapper');
@@ -170,6 +184,8 @@ var get12Hour = function(timestring) {
     var $outlist_wrapper = $('#outlist_wrapper');
     var $results_count = $("#results_count");
     var $bottom_matter = $('#bottom_matter');
+
+    $buttons.on('click', checkItOut);
 
     // set global template variable
     _.templateSettings.variable = "sxsw";
@@ -240,7 +256,11 @@ var get12Hour = function(timestring) {
         // function to clear filters
         var clear_filters = function() {
             $('input[type=text]').val('');
-            $('input[type=checkbox]').attr('checked', false);
+            $('.check_button').each(function (d) {
+                var text = this.textContent.trim();
+                $(this).removeClass("checked")
+                       .html("<i class='fa fa-circle-o'></i> " + text);
+            });
             $('select option:eq(0)').prop('selected', true);
             $list.html('');
             $bottom_matter.hide();
@@ -266,7 +286,7 @@ var get12Hour = function(timestring) {
               }];
 
               $list.html(template(data_to_template));
-              $results_count.html("<div class='container'><hr><h2>Found <strong>1</strong> party</h2><button class='btn btn-default btn-xs' type='button' id='clear_button' style='margin-top:0;'><i class='fa fa-times-circle'></i> Clear</button></div>");
+              $results_count.html("<div class='container'><h2>Found <strong>1</strong> party</h2><button class='btn btn-default btn-xs' type='button' id='clear_button' style='margin-top:0;'><i class='fa fa-times-circle'></i> Clear</button></div>");
               $bottom_matter.show();
 
               $("#clear_button").on('click', clear_filters);
@@ -283,6 +303,8 @@ var get12Hour = function(timestring) {
             var today = d.getDate().toString();
             $('#day_search option[value="' + today + '"]').attr("selected", "selected");
         }
+
+        var masoned = false;
 
         $submit_button.on('click', function() {
             $loader.html("<i class='fa fa-cog fa-spin'></i>");
@@ -367,27 +389,24 @@ var get12Hour = function(timestring) {
                 itemSelector: '.grid-item'
             });
 
-            $grid.imagesLoaded().progress( function() {
-              $grid.masonry('layout');
+            $grid.imagesLoaded().progress(function() {
+              $grid.masonry('reloadItems')
+                   .masonry('layout');
             });
 
             var count = "parties";
-            var alert = "success";
 
             if (matches.length === 1) {
                 count = "party";
             }
 
-            if (matches.length === 0) {
-                alert = "danger";
-            }
-
-            $results_count.html("<div class='container'><hr><h2>Found <strong>" + matches.length + "</strong> " + count + "</h2><button class='btn btn-default btn-xs' type='button' id='clear_button' style='margin-top:0;'><i class='fa fa-times-circle'></i> Clear</button></div>");
+            $results_count.html("<div class='container'><h2>Found <strong>" + matches.length + "</strong> " + count + "</h2><button class='btn btn-default btn-xs' type='button' id='clear_button' style='margin-top:0;'><i class='fa fa-times-circle'></i> Clear</button></div>");
             $bottom_matter.show();
 
             $("#clear_button").on('click', clear_filters);
 
-            var target = $("#results_count");
+            var target = $("#ads");
+
             $('html, body').animate({
                 scrollTop: target.offset().top - 70
             }, 'fast');
@@ -414,11 +433,11 @@ var get12Hour = function(timestring) {
             event_name: $event_filter.val().toUpperCase(),
             venue: $venue_filter.val().toUpperCase(),
             band: $band_filter.val().toUpperCase(),
-            free_entry: $free_entry.is(":checked"),
-            free_food: $free_food.is(":checked"),
-            rsvp: $rsvp.is(":checked"),
-            staff_pick: $staff_pick.is(":checked"),
-            official: $official.is(":checked")
+            free_entry: $free_entry.hasClass("checked"),
+            free_food: $free_food.hasClass("checked"),
+            rsvp: $rsvp.hasClass("checked"),
+            staff_pick: $staff_pick.hasClass("checked"),
+            official: $official.hasClass("checked")
         };
     };
 
