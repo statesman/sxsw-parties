@@ -166,6 +166,7 @@
     </div> <!-- //#searchbox -->
 </div> <!-- // #top_matter -->
 
+<?php include "includes/banner-ad.inc";?>
 
 <div id="bottom_matter">
     <div id="results_count"></div>
@@ -179,8 +180,6 @@
 
 
     </article>
-
-
 
     <script type="text/html" class="template">
         <% _.each(sxsw, function(d) { %>
@@ -237,7 +236,6 @@
     </script>
 
     <!-- bottom matter -->
-    <?php include "includes/banner-ad.inc";?>
     <?php include "includes/legal.inc";?>
     <?php include "includes/project-metrics.inc"; ?>
     <?php include "includes/metrics.inc"; ?>

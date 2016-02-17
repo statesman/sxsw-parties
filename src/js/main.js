@@ -256,7 +256,7 @@ var get12Hour = function(timestring) {
         // function to clear filters
         var clear_filters = function() {
             $('input[type=text]').val('');
-            $('.check_buttons').each(function (d) {
+            $('.check_button').each(function (d) {
                 var text = this.textContent.trim();
                 $(this).removeClass("checked")
                        .html("<i class='fa fa-circle-o'></i> " + text);
@@ -286,7 +286,7 @@ var get12Hour = function(timestring) {
               }];
 
               $list.html(template(data_to_template));
-              $results_count.html("<div class='container'><hr><h2>Found <strong>1</strong> party</h2><button class='btn btn-default btn-xs' type='button' id='clear_button' style='margin-top:0;'><i class='fa fa-times-circle'></i> Clear</button></div>");
+              $results_count.html("<div class='container'><h2>Found <strong>1</strong> party</h2><button class='btn btn-default btn-xs' type='button' id='clear_button' style='margin-top:0;'><i class='fa fa-times-circle'></i> Clear</button></div>");
               $bottom_matter.show();
 
               $("#clear_button").on('click', clear_filters);
@@ -386,13 +386,12 @@ var get12Hour = function(timestring) {
             $('[data-toggle="tooltip"]').tooltip();
 
             var $grid = $('.grid').masonry({
-                itemSelector: '.grid-item',
-                gutter: 20
+                itemSelector: '.grid-item'
             });
 
             $grid.imagesLoaded().progress(function() {
-              $grid.masonry('reloadItems');
-              $grid.masonry('layout');
+              $grid.masonry('reloadItems')
+                   .masonry('layout');
             });
 
             var count = "parties";
@@ -401,12 +400,13 @@ var get12Hour = function(timestring) {
                 count = "party";
             }
 
-            $results_count.html("<div class='container'><hr><h2>Found <strong>" + matches.length + "</strong> " + count + "</h2><button class='btn btn-default btn-xs' type='button' id='clear_button' style='margin-top:0;'><i class='fa fa-times-circle'></i> Clear</button></div>");
+            $results_count.html("<div class='container'><h2>Found <strong>" + matches.length + "</strong> " + count + "</h2><button class='btn btn-default btn-xs' type='button' id='clear_button' style='margin-top:0;'><i class='fa fa-times-circle'></i> Clear</button></div>");
             $bottom_matter.show();
 
             $("#clear_button").on('click', clear_filters);
 
-            var target = $("#results_count");
+            var target = $("#ads");
+
             $('html, body').animate({
                 scrollTop: target.offset().top - 70
             }, 'fast');
