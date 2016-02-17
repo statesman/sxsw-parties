@@ -260,7 +260,7 @@ var get12Hour = function(timestring) {
                 var text = this.textContent.trim();
                 $(this).removeClass("checked")
                        .html("<i class='fa fa-circle-o'></i> " + text);
-            });            
+            });
             $('select option:eq(0)').prop('selected', true);
             $list.html('');
             $bottom_matter.hide();
@@ -303,6 +303,8 @@ var get12Hour = function(timestring) {
             var today = d.getDate().toString();
             $('#day_search option[value="' + today + '"]').attr("selected", "selected");
         }
+
+        var masoned = false;
 
         $submit_button.on('click', function() {
             $loader.html("<i class='fa fa-cog fa-spin'></i>");
@@ -384,22 +386,19 @@ var get12Hour = function(timestring) {
             $('[data-toggle="tooltip"]').tooltip();
 
             var $grid = $('.grid').masonry({
-                itemSelector: '.grid-item'
+                itemSelector: '.grid-item',
+                gutter: 20
             });
 
-            $grid.imagesLoaded().progress( function() {
+            $grid.imagesLoaded().progress(function() {
+              $grid.masonry('reloadItems');
               $grid.masonry('layout');
             });
 
             var count = "parties";
-            var alert = "success";
 
             if (matches.length === 1) {
                 count = "party";
-            }
-
-            if (matches.length === 0) {
-                alert = "danger";
             }
 
             $results_count.html("<div class='container'><hr><h2>Found <strong>" + matches.length + "</strong> " + count + "</h2><button class='btn btn-default btn-xs' type='button' id='clear_button' style='margin-top:0;'><i class='fa fa-times-circle'></i> Clear</button></div>");
