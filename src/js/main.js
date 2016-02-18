@@ -27,12 +27,11 @@ var labelIt = function(item) {
 var checkItOut = function() {
     var text = this.textContent.trim();
     if ($(this).hasClass("checked")) {
-        $(this).removeClass("checked");
         $(this).html("<i class='fa fa-circle-o'></i> " + text);
     } else {
-        $(this).addClass("checked");
         $(this).html("<i class='fa fa-check-circle-o'></i> " + text);
     }
+    $(this).toggleClass("checked");
 };
 
 // function to add thousand-separator commas
@@ -67,7 +66,7 @@ var haversine = function(lat1, lng1, lat2, lng2) {
     return earth_radius * c;
 };
 
-// function to return tw/fb links
+// function to return social links
 var aas_social = function(event_id, event_name, event_time, event_date, venue_name) {
     var root_url = window.location.hostname + "/sxsw/";
     var twitter_message = encodeURIComponent("Via @statesman SXSW party guide: " + event_name + " ~ March " + event_date + ", " + get12Hour(event_time) + " ~ " + venue_name + ": " + root_url + "/#" + event_id);
@@ -208,7 +207,7 @@ var get12Hour = function(timestring) {
     // main function
     var init = function(data, latitude, longitude) {
 
-        // serve up a random background image if not on a small viewport
+        // serve up a random background image
         // img files are slugged bg-sm-1, bg-md-1, bg-lg-1, etc., and we have eight of them
 
         var viewport_width = $(window).width();
@@ -296,6 +295,7 @@ var get12Hour = function(timestring) {
           }
         }
 
+        // is it the week of SXSW? If so, set the select menu option to that day
         var time_for_SXSW = isItSXSW();
 
         if (time_for_SXSW) {
@@ -304,8 +304,7 @@ var get12Hour = function(timestring) {
             $('#day_search option[value="' + today + '"]').attr("selected", "selected");
         }
 
-        var masoned = false;
-
+        // click submit, get results
         $submit_button.on('click', function() {
             $loader.html("<i class='fa fa-cog fa-spin'></i>");
             var search_state = getSearchState();
@@ -381,10 +380,16 @@ var get12Hour = function(timestring) {
                 )
                 .value();
 
+            // pass data to template
             $list.html(template(matches));
+
+            // trigger the shortening plugin
             $(".comment").shorten();
+
+            // trigger tooltips
             $('[data-toggle="tooltip"]').tooltip();
 
+            // initialize masonry
             var $grid = $('.grid').masonry({
                 itemSelector: '.grid-item'
             });
@@ -400,11 +405,13 @@ var get12Hour = function(timestring) {
                 count = "party";
             }
 
+            // populate results count div
             $results_count.html("<div class='container'><h2>Found <strong>" + matches.length + "</strong> " + count + "</h2><button class='btn btn-default btn-xs' type='button' id='clear_button' style='margin-top:0;'><i class='fa fa-times-circle'></i> Clear</button></div>");
             $bottom_matter.show();
 
             $("#clear_button").on('click', clear_filters);
 
+            // scroll to top of ad
             var target = $("#ads");
 
             $('html, body').animate({
@@ -413,6 +420,7 @@ var get12Hour = function(timestring) {
             $loader.html("");
         });
 
+        // fire submit on enter
         $('input[type=text]').bind('keypress', function(e) {
                var key_code = e.keyCode || e.which;
                if(key_code == 13) {
@@ -422,6 +430,7 @@ var get12Hour = function(timestring) {
             $loader.html("");
         };
 
+    // function to get search state
     var getSearchState = function() {
         var geo = "";
         if (navigator.geolocation) {
