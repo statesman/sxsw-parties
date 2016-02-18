@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <?php
   $meta = array(
-    "title" => "SXSW side parties | Statesman.com",
-    "description" => "Your guide to the best side parties at SXSW 2016.",
+    "title" => "SXSW 2016 parties | Statesman.com",
+    "description" => "Your guide to the best parties at SXSW 2016.",
     "shortcut_icon" => "http://media.cmgdigital.com/shared/theme-assets/242014/www.austin360.com_8bc327bbc45a4eafb5625408192c5ff6.ico",
     "apple_touch_icon" => "http://media.cmgdigital.com/shared/theme-assets/242014/www.statesman.com_fa2d2d6e73614535b997734c7e7d2287.png",
     "img" => "assets/bg-sm-" . rand(1,8) . ".png", # set share image dynamically
@@ -92,11 +93,11 @@
 
     <div id="searchbox">
         <div class="container">
-                <button class="btn btn-success check_button" type="button" id="free_entry_button"><i class="fa fa-circle-o"></i> Free entry</button>
-                <button class="btn btn-primary check_button" type="button" id="free_food_button"><i class="fa fa-circle-o"></i> Free food</button>
-                <button class="btn btn-info check_button" type="button" id="rsvp_button"><i class="fa fa-circle-o"></i> RSVP required</button>
-                <button class="btn btn-warning check_button" type="button" id="staff_pick_button"><i class="fa fa-circle-o"></i> Staff pick</button>
-                <button class="btn btn-danger check_button" type="button" id="badge_req_button"><i class="fa fa-circle-o"></i> Badge required</button>
+                <button class="btn btn-success btn-sm check_button" type="button" id="free_entry_button"><i class="fa fa-circle-o"></i> Free entry</button>
+                <button class="btn btn-primary btn-sm check_button" type="button" id="free_food_button"><i class="fa fa-circle-o"></i> Free food</button>
+                <button class="btn btn-info btn-sm check_button" type="button" id="rsvp_button"><i class="fa fa-circle-o"></i> RSVP required</button>
+                <button class="btn btn-warning btn-sm check_button" type="button" id="staff_pick_button"><i class="fa fa-circle-o"></i> Staff pick</button>
+                <button class="btn btn-danger btn-sm check_button" type="button" id="badge_req_button"><i class="fa fa-circle-o"></i> Badge required</button>
 
                 <div class="row" style="margin-top:20px;">
                 <div class="col-md-6 col-xs-12">
@@ -116,21 +117,6 @@
                             <option value="20">Sun (March 20)</option>
                         </select>
                     </div>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <div id="geo_search_wrapper">
-                        <div class="form-group" style="margin-top:10px;">
-                            <label for="geo_search">Nearby</label>
-                            <select class="form-control" id="geo_search">
-                                <option value="" selected="selected">All</option>
-                                <option value="1">Within 1 mile of me</option>
-                                <option value="0.75">Within 3/4 mile of me</option>
-                                <option value="0.5">Within 1/2 mile of me</option>
-                                <option value="0.25">Within 1/4 mile of me</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
                     <div id="more_filters" style="display:none;">
                         <div class="form-group" style="margin-top:10px;">
                             <label for="event_search">Event name contains</label>
@@ -143,6 +129,20 @@
                         <div class="form-group" style="margin-top:10px;">
                             <label for="band_search">Band names contain</label>
                             <input type="text" class="form-control" id="band_search" placeholder="A band?">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <div id="geo_search_wrapper">
+                        <div class="form-group" style="margin-top:10px;">
+                            <label for="geo_search">Nearby</label>
+                            <select class="form-control" id="geo_search">
+                                <option value="" selected="selected">All</option>
+                                <option value="1">Within 1 mile of me</option>
+                                <option value="0.75">Within 3/4 mile of me</option>
+                                <option value="0.5">Within 1/2 mile of me</option>
+                                <option value="0.25">Within 1/4 mile of me</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -177,16 +177,15 @@
         </div>
     </div>
 </div>
-
-
     </article>
 
     <script type="text/html" class="template">
         <% _.each(sxsw, function(d) { %>
-            <div class="col-xs-12 col-sm-6 col-md-3 grid-item" id="<%= d.event_details.id %>">
+            <div class="col-xs-12 col-sm-6 col-md-4 grid-item" id="<%= d.event_details.id %>">
+                <div class="inner_card">
                 <div class="sharebox">
                     <p class="lead">
-                            Share this party&emsp;<a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).tw %>" target="_blank"><i class="fa fa-twitter"></i></a>&ensp;<a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).fb %>" target="_blank"><i class="fa fa-facebook-square"></i></a>
+                            Share this party&emsp;<a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).tw %>" target="_blank"><i class="fa fa-twitter"></i></a>&ensp;&ensp;<a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).fb %>" target="_blank"><i class="fa fa-facebook-square"></i></a>
                     </p>
                 </div>
                 <div class="clearfix"></div>
@@ -230,6 +229,7 @@
                 <% }; %>
 
             </div>
+        </div>
 
             </div>
         <% }); %>
