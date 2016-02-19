@@ -211,6 +211,12 @@ var get12Hour = function(timestring) {
         // check viewport and serve up a random background image
         // img files are slugged bg-sm-1, bg-md-1, bg-lg-1, etc., and we have eight of them
 
+        var randBetween = function(min, max) {
+          return Math.floor(Math.random() * (max - min)) + min;
+        };
+
+        var random_number = randBetween(1,8).toString();
+
         var set_bg = function() {
 
             var viewport_width = $(window).width();
@@ -225,12 +231,6 @@ var get12Hour = function(timestring) {
             };
 
             var viewport_vertical = is_vertical(viewport_height, viewport_width);
-
-            var randBetween = function(min, max) {
-              return Math.floor(Math.random() * (max - min)) + min;
-            };
-
-            var random_number = randBetween(1,8).toString();
 
             if (viewport_width >= 600 && viewport_width < 1024) {
                 $('body').css({
