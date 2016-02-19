@@ -330,7 +330,7 @@ var get12Hour = function(timestring) {
 
         // click submit, get results
         $submit_button.on('click', function() {
-            $loader.html("<i class='fa fa-cog fa-spin'></i> Loading ...");
+            $loader.show();
             var search_state = getSearchState();
             var matches = _.chain(data.events)
                 .filter(function(d) {
@@ -441,7 +441,6 @@ var get12Hour = function(timestring) {
             $('html, body').animate({
                 scrollTop: target.offset().top - 70
             }, 'fast');
-            $loader.html("");
 
         });
 
@@ -452,7 +451,7 @@ var get12Hour = function(timestring) {
                    $submit_button.click();
                }
         });
-            $loader.html("");
+            $loader.hide();
         };
 
     // function to get search state
@@ -479,7 +478,7 @@ var get12Hour = function(timestring) {
         $.getJSON(data_url, function(d) {
             // function to return user lat/lng, if geolocation is available and they opt in
             var getCoords = function(callback) {
-                $loader.html("<i class='fa fa-cog fa-spin'></i> Loading ...");
+                $loader.show();
                 if (navigator.geolocation) {
                   navigator.geolocation.getCurrentPosition(callback, declined_geocoding);
                 } else {
@@ -490,7 +489,7 @@ var get12Hour = function(timestring) {
                 $top_matter.show();
                 $filter_wrapper.show();
                 init(d, null, null);
-                $loader.html("");
+                $loader.hide();
             };
             getCoords(function(position) {
               if(position !== null) {
