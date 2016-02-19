@@ -10,7 +10,7 @@
     "description" => "Your guide to the best parties at SXSW 2016.",
     "shortcut_icon" => "http://media.cmgdigital.com/shared/theme-assets/242014/www.austin360.com_8bc327bbc45a4eafb5625408192c5ff6.ico",
     "apple_touch_icon" => "http://media.cmgdigital.com/shared/theme-assets/242014/www.statesman.com_fa2d2d6e73614535b997734c7e7d2287.png",
-    "img" => "assets/bg-sm-" . rand(1,8) . ".png", # set share image dynamically
+    "img" => "assets/share.png",
     "url" => "http://projects.statesman.com/sxsw/",
     "twitter" => "statesman"
   );
