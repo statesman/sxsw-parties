@@ -164,6 +164,7 @@ var get12Hour = function(timestring) {
 //  http://djuiuzgub7yaf.cloudfront.net/aS_pGOEW4Q8snG_cS8oVZAUFwnU=/200x300/smart/
 
     // cache dom references
+    var $top_matter = $("#top_matter");
     var $list = $("#outlist");
     var $loader = $("#loader");
     var $buttons = $('.check_button');
@@ -207,39 +208,62 @@ var get12Hour = function(timestring) {
     // main function
     var init = function(data, latitude, longitude) {
 
-        // serve up a random background image
+        // check viewport and serve up a random background image
         // img files are slugged bg-sm-1, bg-md-1, bg-lg-1, etc., and we have eight of them
 
-        var viewport_width = $(window).width();
+        var set_bg = function() {
 
-        var randBetween = function(min, max) {
-          return Math.floor(Math.random() * (max - min)) + min;
+            var viewport_width = $(window).width();
+            var viewport_height = $(window).height();
+
+            var is_vertical = function(h, w) {
+                if (h > w) {
+                    return true;
+                } else {
+                    return false;
+                }
+            };
+
+            var viewport_vertical = is_vertical(viewport_height, viewport_width);
+
+            var randBetween = function(min, max) {
+              return Math.floor(Math.random() * (max - min)) + min;
+            };
+
+            var random_number = randBetween(1,8).toString();
+
+            if (viewport_width >= 600 && viewport_width < 1024) {
+                $('body').css({
+                    'backgroundImage': 'linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)), url("assets/bg-md-' + random_number + '.png")',
+                    'backgroundRepeat': 'no-repeat',
+                    'backgroundSize': '100%',
+                    'backgroundPosition': 'center top',
+                    'backgroundAttachment': 'fixed'
+                });
+            } else if (viewport_width >= 1024) {
+                $('body').css({
+                    'backgroundImage': 'linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)), url(assets/bg-lg-' + random_number + '.png)',
+                    'backgroundRepeat': 'no-repeat',
+                    'backgroundSize': '100%',
+                    'backgroundPosition': 'center center',
+                    'backgroundAttachment': 'fixed'
+                });
+            }
+
+            if (viewport_width < 600 && viewport_vertical) {
+                $('body').css({
+                    'backgroundImage': 'linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)), url(assets/bg-small-vert.png)',
+                    'backgroundRepeat': 'no-repeat',
+                    'backgroundSize': '100%',
+                    'backgroundPosition': 'center top',
+                    'backgroundAttachment': 'fixed'
+                });
+            }
         };
 
-        var random_number = randBetween(1,8).toString();
+        set_bg();
 
-        if (viewport_width >= 600 && viewport_width < 1024) {
-            $('#top_matter').css({
-                'backgroundImage': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 1)), url("assets/bg-md-' + random_number + '.png")',
-                'backgroundRepeat': 'no-repeat',
-                'backgroundSize': '100%',
-                'backgroundPosition': 'center top'
-            });
-        } else if (viewport_width >= 1024) {
-            $('#top_matter').css({
-                'backgroundImage': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 1)), url(assets/bg-lg-' + random_number + '.png)',
-                'backgroundRepeat': 'no-repeat',
-                'backgroundSize': '100%',
-                'backgroundPosition': 'center top'
-            });
-        } else {
-            $('#top_matter').css({
-                'backgroundImage': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 1)), url(assets/bg-sm-' + random_number + '.png)',
-                'backgroundRepeat': 'no-repeat',
-                'backgroundSize': '100%',
-                'backgroundPosition': 'center top'
-            });
-        }
+        $(window).on('resize', _.debounce(set_bg, 500));
 
         // smooth scroll to anchor links
         $('a[href^="#"]').on('click', function(e) {
@@ -306,7 +330,7 @@ var get12Hour = function(timestring) {
 
         // click submit, get results
         $submit_button.on('click', function() {
-            $loader.html("<i class='fa fa-cog fa-spin'></i>");
+            $loader.html("<i class='fa fa-cog fa-spin'></i> Loading ...");
             var search_state = getSearchState();
             var matches = _.chain(data.events)
                 .filter(function(d) {
@@ -418,6 +442,7 @@ var get12Hour = function(timestring) {
                 scrollTop: target.offset().top - 70
             }, 'fast');
             $loader.html("");
+
         });
 
         // fire submit on enter
@@ -454,7 +479,7 @@ var get12Hour = function(timestring) {
         $.getJSON(data_url, function(d) {
             // function to return user lat/lng, if geolocation is available and they opt in
             var getCoords = function(callback) {
-                $loader.html("<i class='fa fa-cog fa-spin'></i>");
+                $loader.html("<i class='fa fa-cog fa-spin'></i> Loading ...");
                 if (navigator.geolocation) {
                   navigator.geolocation.getCurrentPosition(callback, declined_geocoding);
                 } else {
@@ -462,6 +487,7 @@ var get12Hour = function(timestring) {
                 }
             };
             var declined_geocoding = function() {
+                $top_matter.show();
                 $filter_wrapper.show();
                 init(d, null, null);
                 $loader.html("");
@@ -472,10 +498,12 @@ var get12Hour = function(timestring) {
                   var user_lng = position.coords.longitude;
                   $geo_search_wrapper.show();
                   init(d, user_lat, user_lng);
+                  $top_matter.show();
                   $filter_wrapper.show();
               } else {
                   init(d, null, null);
-                  $filter_wrapper.show();
+                $top_matter.show();
+                $filter_wrapper.show();
               }
             });
         });
