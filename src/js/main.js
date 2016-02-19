@@ -442,6 +442,8 @@ var get12Hour = function(timestring) {
                 scrollTop: target.offset().top - 70
             }, 'fast');
 
+            $loader.hide();
+
         });
 
         // fire submit on enter
