@@ -59,13 +59,8 @@ article {
     font-style:italic;
 }
 
-.check_label {
-    font-weight:normal;
-}
-
 .grid-item {
     padding:0;
-    max-width:94%;
 }
 
 .grid-item .inner_card {
@@ -79,16 +74,6 @@ article {
 
 #submit_button, #clear_button {
     margin-top:10px;
-}
-
-#search_and_spinner {
-    padding-top:5px;
-}
-
-@media (max-width: 768px) {
-    #search_and_spinner {
-        margin-top:15px;
-    }
 }
 
 #results_count {
@@ -116,7 +101,7 @@ article {
     vertical-align: middle;
 }
 
-#filter_wrapper, #geo_search_wrapper {
+#top_matter, #filter_wrapper, #geo_search_wrapper {
     display:none;
 }
 
@@ -125,7 +110,7 @@ article {
     padding-bottom:15px;
 }
 
-.sharebox a i {
+.sharebox a i, #loader {
     color: white;
 }
 
@@ -134,4 +119,8 @@ article {
     background: #eee;
     box-shadow: 0 0 5px #ccc;
     margin-bottom:30px;
+}
+
+.fa-minus-square-o, .fa-plus-square-o {
+    font-size: 120%;
 }

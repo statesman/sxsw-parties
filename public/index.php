@@ -61,7 +61,7 @@
         <img width="122" height="50" src="assets/logo_austin360_color.png">
       </a>
       <div class="navbar-header" id="search_and_spinner">
-          <a class="navbar-text" href="#searchbox">Search</a>&emsp;<span class="navbar-text" id="loader"></span>
+          <a class="navbar-text" href="#searchbox">Search</a>
       </div>
 
     </div>
@@ -81,6 +81,10 @@
 </nav>
 
     <article>
+
+<div class="container">
+    <h1 id="loader"></h1>
+</div>
 
 <div id="top_matter">
 
@@ -164,6 +168,7 @@
 
         </div> <!-- //.container -->
     </div> <!-- //#searchbox -->
+
 </div> <!-- // #top_matter -->
 
 <?php include "includes/banner-ad.inc";?>
