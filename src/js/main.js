@@ -234,7 +234,7 @@ var get12Hour = function(timestring) {
 
             if (viewport_width >= 600 && viewport_width < 1024) {
                 $('body').css({
-                    'backgroundImage': 'linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)), url("assets/bg-md-' + random_number + '.png")',
+                    'backgroundImage': 'linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)), url("assets/bg-md-' + random_number + '.jpg")',
                     'backgroundRepeat': 'no-repeat',
                     'backgroundSize': '100%',
                     'backgroundPosition': 'center top',
@@ -242,7 +242,7 @@ var get12Hour = function(timestring) {
                 });
             } else if (viewport_width >= 1024) {
                 $('body').css({
-                    'backgroundImage': 'linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)), url(assets/bg-lg-' + random_number + '.png)',
+                    'backgroundImage': 'linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)), url(assets/bg-lg-' + random_number + '.jpg)',
                     'backgroundRepeat': 'no-repeat',
                     'backgroundSize': '100%',
                     'backgroundPosition': 'center center',
@@ -252,7 +252,7 @@ var get12Hour = function(timestring) {
 
             if (viewport_width < 600 && viewport_vertical) {
                 $('body').css({
-                    'backgroundImage': 'linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)), url(assets/bg-small-vert.png)',
+                    'backgroundImage': 'linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)), url(assets/bg-small-vert.jpg)',
                     'backgroundRepeat': 'no-repeat',
                     'backgroundSize': '100%',
                     'backgroundPosition': 'center top',
