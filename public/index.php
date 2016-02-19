@@ -82,8 +82,8 @@
 
     <article>
 
-<div class="container">
-    <h1 id="loader"></h1>
+<div class="container" id="loader" style="display:none;">
+    <h1><i class="fa fa-cog fa-spin"></i> Loading ...</h1>
 </div>
 
 <div id="top_matter">
@@ -177,9 +177,7 @@
     <div id="results_count"></div>
 
     <div class="container">
-        <div class="row">
-            <div class="grid" id="outlist"></div>
-        </div>
+        <div class="row grid" id="outlist"></div>
     </div>
 </div>
     </article>
