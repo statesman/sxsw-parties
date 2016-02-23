@@ -492,7 +492,7 @@ var get12Hour = function(timestring) {
                         }
                     }
                     if (search_state.day !== "") {
-                        if (search_state.day !== +d.party_date) {
+                        if (search_state.day !== d.party_date.toString()) {
                                 exclude++;
                         }
                     }
