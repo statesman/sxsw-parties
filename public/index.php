@@ -91,7 +91,7 @@
     <div id="splash">
         <div class="container">
             <h1>Your unofficial SXSW party guide</h1>
-                <p class="lead">Search for <span id="total_count"></span> parties at SXSW 2016. Got a party to add? <a href="mailto:rcorbelli@statesman.com?subject=SXSW%20Party%20Guide">Let us know</a>.</p>
+                <p class="lead">Search for <span id="total_count"></span> parties happening at SXSW 2016. Got a party to add? <a href="mailto:rcorbelli@statesman.com?subject=SXSW%20Party%20Guide">Let us know</a>.</p>
         </div>
     </div>
 
@@ -245,7 +245,7 @@
                 <% }; %>
 
                 <% if (d.event_details.poster && d.event_details.poster !== "") { %>
-                <img src="<%= d.event_details.poster %>" style="width:100%; margin-top:10px;" />
+                <img src="<%= fetchImg(d.event_details.poster) %>" style="width:100%; margin-top:10px;" />
                 <% }; %>
 
             </div>

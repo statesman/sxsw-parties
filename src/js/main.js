@@ -23,6 +23,12 @@ var labelIt = function(item) {
   }
 };
 
+// make img tag
+
+var fetchImg = function(link) {
+    return "https://s3-us-west-2.amazonaws.com/media.data.statesman.com/" + link;
+};
+
 // function to return calendar items for Google, Yahoo, Outlook and iCal
 // adapted from: https://github.com/carlsednaoui/add-to-calendar-buttons
 
@@ -294,7 +300,6 @@ var get12Hour = function(timestring) {
                 $(".morecontent span").hide();
             }
         });
-
     };
 
 
@@ -302,7 +307,6 @@ var get12Hour = function(timestring) {
     var sxsw_start = 'March 10, 2016';
     var sxsw_end = 'March 20, 2016';
     var data_url = 'data.json';
-//  http://djuiuzgub7yaf.cloudfront.net/aS_pGOEW4Q8snG_cS8oVZAUFwnU=/200x300/smart/
 
     // cache dom references
     var $top_matter = $("#top_matter");
