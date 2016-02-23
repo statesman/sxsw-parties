@@ -355,8 +355,8 @@ var get12Hour = function(timestring) {
                     }
                     if (search_state.geo !== "") {
                         if (latitude && latitude !== null && longitude && longitude !== null) {
-                          var venue_lat = venue_details.lat;
-                          var venue_lng = venue_details.lng;
+                          var venue_lat = venue_details.latitude;
+                          var venue_lng = venue_details.longitude;
                           var distance = haversine(latitude, longitude, venue_lat, venue_lng);
                           if (distance > parseFloat(search_state.geo)) {
                                   exclude++;
