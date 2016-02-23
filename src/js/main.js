@@ -537,7 +537,7 @@ var get12Hour = function(timestring) {
                         }
                     }
                     if (search_state.rsvp === true) {
-                        if (d.rsvp !== search_state.rsvp_required) {
+                        if (d.rsvp_required !== search_state.rsvp) {
                             exclude++;
                         }
                     }
