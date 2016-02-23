@@ -83,7 +83,7 @@
     <article>
 
 <div class="container" id="loader" style="display:none;">
-    <h1><i class="fa fa-cog fa-spin"></i> Loading ...</h1>
+    <h1><i class="fa fa-spinner fa-spin"></i> Loading ...</h1>
 </div>
 
 <div id="top_matter">
@@ -91,24 +91,27 @@
     <div id="splash">
         <div class="container">
             <h1>Your unofficial SXSW party guide</h1>
-                <p class="lead">Search for <span id="total_count"></span> parties at SXSW 2016. Got a party to add? <a href="mailto:rcorbelli@statesman.com?subject=SXSW%20Party%20Guide">Let us know</a>.</p>
+                <p class="lead">Search <span id="total_count"></span> parties at SXSW 2016. Got a party to add? <a href="mailto:rcorbelli@statesman.com?subject=SXSW%20Party%20Guide">Let us know</a>.</p>
         </div>
     </div>
 
     <div id="searchbox">
         <div class="container">
-                <button class="btn btn-success btn-sm check_button" type="button" id="free_entry_button"><i class="fa fa-circle-o"></i> Free entry</button>
-                <button class="btn btn-primary btn-sm check_button" type="button" id="free_food_button"><i class="fa fa-circle-o"></i> Free food</button>
-                <button class="btn btn-info btn-sm check_button" type="button" id="rsvp_button"><i class="fa fa-circle-o"></i> RSVP required</button>
-                <button class="btn btn-warning btn-sm check_button" type="button" id="staff_pick_button"><i class="fa fa-circle-o"></i> Staff pick</button>
-                <button class="btn btn-danger btn-sm check_button" type="button" id="badge_req_button"><i class="fa fa-circle-o"></i> Badge required</button>
+                <label>Click options to filter results</label>
+                <div class="clearfix"></div>
+                <button class="btn btn-success btn-lg check_button checked bold" type="button" id="free_entry_button"><i class="fa fa-check-circle-o"></i> Free entry</button>
+                <button class="btn btn-primary btn-lg check_button checked bold" type="button" id="free_food_button"><i class="fa fa-check-circle-o"></i> Free food</button>
+                <button class="btn btn-info btn-lg check_button" type="button" id="rsvp_button"><i class="fa fa-circle-o"></i> RSVP required</button>
+                <button class="btn btn-warning btn-lg check_button" type="button" id="staff_pick_button"><i class="fa fa-circle-o"></i> Staff pick</button>
+                <button class="btn btn-danger btn-lg check_button" type="button" id="badge_req_button"><i class="fa fa-circle-o"></i> Badge required</button>
 
                 <div class="row" style="margin-top:20px;">
                 <div class="col-md-6 col-xs-12">
                     <div class="form-group" style="margin-top:10px;">
-                        <label for="day_search">Day</label>
-                        <select class="form-control" id="day_search">
-                            <option value="10" selected="selected">Thu (March 10)</option>
+                        <label for="day_search">Select day</label>
+                        <select class="form-control input-lg" id="day_search">
+                            <option value="" selected="selected">Any day</option>
+                            <option value="10">Thu (March 10)</option>
                             <option value="11">Fri (March 11)</option>
                             <option value="12">Sat (March 12)</option>
                             <option value="13">Sun (March 13)</option>
@@ -124,23 +127,23 @@
                     <div id="more_filters" style="display:none;">
                         <div class="form-group" style="margin-top:10px;">
                             <label for="event_search">Event name contains</label>
-                            <input type="text" class="form-control" id="event_search" placeholder="Looking for a specific event?">
+                            <input type="text" class="form-control input-lg" id="event_search" placeholder="Looking for a specific event?">
                         </div>
                         <div class="form-group" style="margin-top:10px;">
                             <label for="venue_search">Venue name contains</label>
-                            <input type="text" class="form-control" id="venue_search" placeholder="A venue?">
+                            <input type="text" class="form-control input-lg" id="venue_search" placeholder="A venue?">
                         </div>
                         <div class="form-group" style="margin-top:10px;">
                             <label for="band_search">Band names contain</label>
-                            <input type="text" class="form-control" id="band_search" placeholder="A band?">
+                            <input type="text" class="form-control input-lg" id="band_search" placeholder="A band?">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-xs-12">
                     <div id="geo_search_wrapper">
                         <div class="form-group" style="margin-top:10px;">
-                            <label for="geo_search">Nearby</label>
-                            <select class="form-control" id="geo_search">
+                            <label for="geo_search">Find parties nearby</label>
+                            <select class="form-control input-lg" id="geo_search">
                                 <option value="" selected="selected">All</option>
                                 <option value="1">Within 1 mile of me</option>
                                 <option value="0.75">Within 3/4 mile of me</option>
@@ -159,7 +162,7 @@
                                    <span class="toggle_options" style="display:none;">&laquo; Fewer options</span>
                                </a>
                             </p>
-                            <button type="button" class="btn btn-default" id="submit_button">
+                            <button type="button" class="btn btn-lg btn-default" id="submit_button">
                                 Search &raquo;
                             </button>
                     </div>
@@ -188,31 +191,32 @@
                 <div class="inner_card">
                 <div class="sharebox">
                     <p class="lead">
-                            Share this party&emsp;<a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).tw %>" target="_blank"><i class="fa fa-twitter"></i></a>&ensp;&ensp;<a href="<%= aas_social(d.event_details.id, d.event_details.name, d.event_details.time, d.event_details.date, d.venue_details.name).fb %>" target="_blank"><i class="fa fa-facebook-square"></i></a>
+                        Share this party&emsp;<a href="<%= aas_social(d.event_details.id, d.event_details.party_name, d.event_details.party_start_time, d.event_details.party_date, d.venue_details.name).tw %>" target="_blank"><i class="fa fa-twitter"></i></a>&ensp;&ensp;<a href="<%= aas_social(d.event_details.id, d.event_details.party_name, d.event_details.party_start_time, d.event_details.party_date, d.venue_details.name).fb %>" target="_blank"><i class="fa fa-facebook-square"></i></a>
                     </p>
                 </div>
                 <div class="clearfix"></div>
 
                 <div class="inner-wrapper">
                 <h2 style="margin-top:0; font-weight:bold;">
-                    <%= d.event_details.name %>
+                    <%= d.event_details.party_name %>
                 </h2>
                 <p class="ital">
-                    March <%= d.event_details.date %>
+                    March <%= d.event_details.party_date %>
                     &ensp;&bull;&ensp;
-                    <%= get12Hour(d.event_details.time) %>
-                    <% if (d.event_details.rsvp) { %>
+                    <%= get12Hour(d.event_details.party_start_time) %>
+                    <% if (d.event_details.rsvp_required) { %>
                     &ensp;&bull;&ensp;
-                    <a href="<%= d.event_details.event_link %>" target="_blank">RSVP</a>
+                    <a href="<%= d.event_details.event_or_rsvp_link %>" target="_blank">RSVP</a>
                     <% }; %>
                 </p>
 
                 <%= labelIt(d.event_details) %>
 
-                <p class="comment"><%= d.event_details.description %></p>
+                <p class="comment"><%= d.event_details.party_description %></p>
 
-                <% if (d.event_details.event_link && d.event_details.event_link !== "") { %>
-                <p><a href="<%= d.event_details.event_link %>" target="_blank">Website</a></p>
+                <% if (d.event_details.event_or_rsvp_link && d.event_details.event_or_rsvp_link !== "") { %>
+                <hr>
+                <p><a href="<%= d.event_details.event_or_rsvp_link %>" target="_blank">Website</a></p>
                 <% }; %>
 
                 <% if (d.event_details.bands && d.event_details.bands !== "") { %>
