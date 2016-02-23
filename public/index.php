@@ -91,7 +91,7 @@
     <div id="splash">
         <div class="container">
             <h1>Your unofficial SXSW party guide</h1>
-                <p class="lead">Search <span id="total_count"></span> parties at SXSW 2016. Got a party to add? <a href="mailto:rcorbelli@statesman.com?subject=SXSW%20Party%20Guide">Let us know</a>.</p>
+                <p class="lead">Search for <span id="total_count"></span> parties at SXSW 2016. Got a party to add? <a href="mailto:rcorbelli@statesman.com?subject=SXSW%20Party%20Guide">Let us know</a>.</p>
         </div>
     </div>
 
@@ -99,8 +99,8 @@
         <div class="container">
                 <label>Click options to filter results</label>
                 <div class="clearfix"></div>
-                <button class="btn btn-success btn-lg check_button checked bold" type="button" id="free_entry_button"><i class="fa fa-check-circle-o"></i> Free entry</button>
-                <button class="btn btn-primary btn-lg check_button checked bold" type="button" id="free_food_button"><i class="fa fa-check-circle-o"></i> Free food</button>
+                <button class="btn btn-success btn-lg check_button" type="button" id="free_entry_button"><i class="fa fa-circle-o"></i> Free entry</button>
+                <button class="btn btn-primary btn-lg check_button" type="button" id="free_food_button"><i class="fa fa-circle-o"></i> Free food</button>
                 <button class="btn btn-info btn-lg check_button" type="button" id="rsvp_button"><i class="fa fa-circle-o"></i> RSVP required</button>
                 <button class="btn btn-warning btn-lg check_button" type="button" id="staff_pick_button"><i class="fa fa-circle-o"></i> Staff pick</button>
                 <button class="btn btn-danger btn-lg check_button" type="button" id="badge_req_button"><i class="fa fa-circle-o"></i> Badge required</button>
@@ -230,6 +230,19 @@
                     <%= d.venue_details.name %>
                 </h3>
                 <p><i class="fa fa-map-marker"></i>&ensp;<a href="<%= googleMap(d.venue_details.address) %>" target="_blank"><%= d.venue_details.address %></a></p>
+
+                <% if (d.calendars) { %>
+                <hr>
+                <p>
+                    <b>Add to calendar</b><br>
+                    <a role="button" class="btn btn-xs btn-default cal" href="<%= d.calendars.google.href %>" target="_blank"><i class="fa <%= d.calendars.google.icon %>"></i>&emsp;Google</a><br>
+                <!--[if !IE]> -->
+                    <a role="button" class="btn btn-xs btn-default cal" href="<%= d.calendars.ics.href %>" target="_blank"><i class="fa <%= d.calendars.ics.icon %>"></i>&emsp;iCal</a><br>
+                    <a role="button" class="btn btn-xs btn-default cal" href="<%= d.calendars.ics.href %>" target="_blank"><i class="fa <%= d.calendars.ics.icon %>"></i>&emsp;Outlook</a><br>
+                <!-- <![endif]-->
+                    <a role="button" class="btn btn-xs btn-default cal" href="<%= d.calendars.yahoo.href %>" target="_blank"><i class="fa <%= d.calendars.yahoo.icon %>"></i>&emsp;Yahoo!</a>
+                </p>
+                <% }; %>
 
                 <% if (d.event_details.poster && d.event_details.poster !== "") { %>
                 <img src="<%= d.event_details.poster %>" style="width:100%; margin-top:10px;" />
