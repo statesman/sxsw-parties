@@ -27,9 +27,11 @@ var labelIt = function(item) {
 var checkItOut = function() {
     var text = this.textContent.trim();
     if ($(this).hasClass("checked")) {
-        $(this).html("<i class='fa fa-circle-o'></i> " + text);
+        $(this).html("<i class='fa fa-circle-o'></i> " + text)
+               .removeClass("bold");
     } else {
-        $(this).html("<i class='fa fa-check-circle-o'></i> " + text);
+        $(this).html("<i class='fa fa-check-circle-o'></i> " + text)
+               .addClass("bold");
     }
     $(this).toggleClass("checked");
 };
@@ -113,8 +115,8 @@ var get12Hour = function(timestring) {
         var config = {
             showChars: 100,
             ellipsesText: "...",
-            moreText: "<i class='fa fa-plus-square-o'>",
-            lessText: "<i class='fa fa-minus-square-o'>"
+            moreText: "<i class='fa fa-plus-square-o reload_masonry'></i>",
+            lessText: "<i class='fa fa-minus-square-o reload_masonry'></i>"
         };
 
         if (settings) {
@@ -156,11 +158,11 @@ var get12Hour = function(timestring) {
 
     };
 
+
     // global variables
     var sxsw_start = 'March 10, 2016';
     var sxsw_end = 'March 20, 2016';
-    var data_url = 'data-test.json';
-//  var data_url = 'data.json';
+    var data_url = 'data.json';
 //  http://djuiuzgub7yaf.cloudfront.net/aS_pGOEW4Q8snG_cS8oVZAUFwnU=/200x300/smart/
 
     // cache dom references
@@ -334,10 +336,10 @@ var get12Hour = function(timestring) {
             var search_state = getSearchState();
             var matches = _.chain(data.events)
                 .filter(function(d) {
-                    var venue_details = _.findWhere(data.venues, {"id": d.venue});
+                    var venue_details = _.findWhere(data.venues, {"id": +d.party_place_id});
                     var exclude = 0;
                     if (search_state.event_name !== "") {
-                        if (d.name.toUpperCase().indexOf(search_state.event_name) < 0) {
+                        if (d.party_name.toUpperCase().indexOf(search_state.event_name) < 0) {
                             exclude++;
                         }
                     }
@@ -346,8 +348,10 @@ var get12Hour = function(timestring) {
                             exclude++;
                         }
                     }
-                    if (Number(search_state.day) !== d.date) {
-                            exclude++;
+                    if (search_state.day !== "") {
+                        if (search_state.day !== +d.party_date) {
+                                exclude++;
+                        }
                     }
                     if (search_state.geo !== "") {
                         if (latitude && latitude !== null && longitude && longitude !== null) {
@@ -375,7 +379,7 @@ var get12Hour = function(timestring) {
                         }
                     }
                     if (search_state.rsvp === true) {
-                        if (d.rsvp !== search_state.rsvp) {
+                        if (d.rsvp !== search_state.rsvp_required) {
                             exclude++;
                         }
                     }
@@ -385,23 +389,23 @@ var get12Hour = function(timestring) {
                         }
                     }
                     if (search_state.official === true) {
-                        if (d.official !== search_state.official) {
+                        if (d.badge_required !== search_state.official) {
                             exclude++;
                         }
                     }
                     return exclude === 0;
                 })
+                .sortBy(
+                    function(x) {
+                        return new Date("March " + x.party_date + ", 2016 " + x.party_start_time).getTime();
+                    }
+                )
                 .map(function(value) {
                     return {
                         event_details: value,
-                        venue_details: _.findWhere(data.venues, {"id": value.venue}),
+                        venue_details: _.findWhere(data.venues, {"id": +value.party_place_id}),
                     };
                 })
-                .sortBy(
-                    function(x) {
-                        return new Date("March " + x.date + ", 2016 " + x.time).getTime();
-                    }
-                )
                 .value();
 
             // pass data to template
@@ -421,6 +425,14 @@ var get12Hour = function(timestring) {
             $grid.imagesLoaded().progress(function() {
               $grid.masonry('reloadItems')
                    .masonry('layout');
+            });
+
+            // reload masonry on shortlink click
+            $('.morelink, .less').on("click", function () {
+                    $grid.imagesLoaded( function () {
+                      $grid.masonry('reloadItems')
+                        .masonry('layout');
+                    });
             });
 
             var count = "parties";
