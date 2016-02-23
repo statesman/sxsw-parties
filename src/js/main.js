@@ -29,6 +29,7 @@ var fetchImg = function(link) {
     return "https://s3-us-west-2.amazonaws.com/media.data.statesman.com/" + link;
 };
 
+/*
 // function to return calendar items for Google, Yahoo, Outlook and iCal
 // adapted from: https://github.com/carlsednaoui/add-to-calendar-buttons
 
@@ -167,6 +168,8 @@ var fetchImg = function(link) {
 
     return myCalendar;
 };
+
+*/
 
 // function to check/uncheck top button icons
 var checkItOut = function() {
@@ -361,7 +364,8 @@ var get12Hour = function(timestring) {
             format: "MM d",
             startDate: new Date(sxsw_start),
             endDate: new Date(sxsw_end),
-            clearBtn: true
+            clearBtn: true,
+            disableTouchKeyboard: true
         });
 
         // check viewport and serve up a random background image
@@ -558,8 +562,8 @@ var get12Hour = function(timestring) {
                     var venue_deets = _.findWhere(data.venues, {"id": +value.party_place_id});
                     return {
                         event_details: value,
-                        venue_details: venue_deets,
-                        calendars: calendarLinks(value.party_name, "March " + value.party_date + ", 2016 " + value.party_start_time, "March " + value.party_date + ", 2016 " + value.party_start_time, venue_deets.address + " Austin, TX", value.party_description)
+                        venue_details: venue_deets/*,
+                        calendars: calendarLinks(value.party_name, "March " + value.party_date + ", 2016 " + value.party_start_time, "March " + value.party_date + ", 2016 " + value.party_start_time, venue_deets.address + " Austin, TX", value.party_description)*/
                     };
                 })
                 .value();

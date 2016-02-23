@@ -219,16 +219,16 @@
                 <p><i class="fa fa-map-marker"></i>&ensp;<a href="<%= googleMap(d.venue_details.address) %>" target="_blank"><%= d.venue_details.address %></a></p>
 
                 <% if (d.calendars) { %>
-                <hr>
-                <p>
-                    <b>Add to calendar</b><br>
-                    <a role="button" class="btn btn-xs btn-default cal" href="<%= d.calendars.google.href %>" target="_blank"><i class="fa <%= d.calendars.google.icon %>"></i>&emsp;Google</a><br>
-                <!--[if !IE]> -->
-                    <a role="button" class="btn btn-xs btn-default cal" href="<%= d.calendars.ics.href %>" target="_blank"><i class="fa <%= d.calendars.ics.icon %>"></i>&emsp;iCal</a><br>
-                    <a role="button" class="btn btn-xs btn-default cal" href="<%= d.calendars.ics.href %>" target="_blank"><i class="fa <%= d.calendars.ics.icon %>"></i>&emsp;Outlook</a><br>
-                <!-- <![endif]-->
-                    <a role="button" class="btn btn-xs btn-default cal" href="<%= d.calendars.yahoo.href %>" target="_blank"><i class="fa <%= d.calendars.yahoo.icon %>"></i>&emsp;Yahoo!</a>
-                </p>
+                <!--
+                    <hr>
+                    <p>
+                        <b>Add to calendar</b><br>
+                        <a role="button" class="btn btn-xs btn-default cal" href="<%= d.calendars.google.href %>" target="_blank"><i class="fa <%= d.calendars.google.icon %>"></i>&emsp;Google</a><br>
+                        <a role="button" class="btn btn-xs btn-default cal" href="<%= d.calendars.ics.href %>" target="_blank"><i class="fa <%= d.calendars.ics.icon %>"></i>&emsp;iCal</a><br>
+                        <a role="button" class="btn btn-xs btn-default cal" href="<%= d.calendars.ics.href %>" target="_blank"><i class="fa <%= d.calendars.ics.icon %>"></i>&emsp;Outlook</a><br>
+                        <a role="button" class="btn btn-xs btn-default cal" href="<%= d.calendars.yahoo.href %>" target="_blank"><i class="fa <%= d.calendars.yahoo.icon %>"></i>&emsp;Yahoo!</a>
+                    </p>
+                -->
                 <% }; %>
 
                 <% if (d.event_details.poster && d.event_details.poster !== "") { %>
