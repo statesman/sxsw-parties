@@ -108,7 +108,7 @@
                 <div class="row" style="margin-top:20px;">
                 <div class="col-md-6 col-xs-12">
                     <div class="form-group" style="margin-top:10px;">
-                        <label for="day_search">Select day</label>
+                        <label for="day_search">Select day (leave blank for the whole week)</label>
                         <input type="text" class="form-control input-lg" id="day_search" value="">
                     </div>
                     <div id="more_filters" style="display:none;">
@@ -161,9 +161,8 @@
 
 </div> <!-- // #top_matter -->
 
-<?php include "includes/banner-ad.inc";?>
-
 <div id="bottom_matter">
+    <?php include "includes/banner-ad.inc";?>
     <div id="results_count"></div>
 
     <div class="container">

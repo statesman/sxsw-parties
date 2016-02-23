@@ -142,7 +142,7 @@ module.exports = function(grunt) {
           text: 'Project published to stage: http://stage.host.coxmediagroup.com/aas/projects/sxsw/ {{message}}'
         },
         prod: {
-          text: 'Project published to prod: http://projects.statesman.com/ {{message}}'
+          text: 'Project published to prod: http://projects.statesman.com/sxsw {{message}}'
         }
     }
 
