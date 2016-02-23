@@ -37,7 +37,7 @@ module.exports = function(grunt) {
           cleancss: false
         },
         files: {
-          "public/dist/style.css": "src/less/style.less"
+          "public/dist/style.css": ["src/less/style.less", "src/less/bootstrap-datepicker.css"]
         }
       }
     },
@@ -46,7 +46,7 @@ module.exports = function(grunt) {
     // Run our JavaScript through JSHint
     jshint: {
       js: {
-        src: ['src/js/**.js']
+        src: ['src/js/**.js', '!src/js/bootstrap-datepicker.js']
       }
     },
     // Use Uglify to bundle up a pym file for the home page
@@ -66,6 +66,7 @@ module.exports = function(grunt) {
             'bower_components/underscore/underscore-min.js',
             'bower_components/masonry/dist/masonry.pkgd.min.js',
             'bower_components/imagesloaded/imagesloaded.pkgd.min.js',
+            'src/js/bootstrap-datepicker.js',
             'src/js/main.js'
           ]
         }

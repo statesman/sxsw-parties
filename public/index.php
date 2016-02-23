@@ -109,20 +109,7 @@
                 <div class="col-md-6 col-xs-12">
                     <div class="form-group" style="margin-top:10px;">
                         <label for="day_search">Select day</label>
-                        <select class="form-control input-lg" id="day_search">
-                            <option value="" selected="selected">Any day</option>
-                            <option value="10">Thu (March 10)</option>
-                            <option value="11">Fri (March 11)</option>
-                            <option value="12">Sat (March 12)</option>
-                            <option value="13">Sun (March 13)</option>
-                            <option value="14">Mon (March 14)</option>
-                            <option value="15">Tue (March 15)</option>
-                            <option value="16">Wed (March 16)</option>
-                            <option value="17">Thu (March 17)</option>
-                            <option value="18">Fri (March 18)</option>
-                            <option value="19">Sat (March 19)</option>
-                            <option value="20">Sun (March 20)</option>
-                        </select>
+                        <input type="text" class="form-control input-lg" id="day_search" value="">
                     </div>
                     <div id="more_filters" style="display:none;">
                         <div class="form-group" style="margin-top:10px;">
@@ -259,7 +246,6 @@
     <?php include "includes/legal.inc";?>
     <?php include "includes/project-metrics.inc"; ?>
     <?php include "includes/metrics.inc"; ?>
-
     <script src="dist/scripts.js"></script>
 
   <?php if($_SERVER['SERVER_NAME'] === 'localhost'): ?>

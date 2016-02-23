@@ -314,6 +314,7 @@ var get12Hour = function(timestring) {
     var $loader = $("#loader");
     var $buttons = $('.check_button');
     var $submit_button = $("#submit_button");
+    var $day_filter = $("#day_search");
     var $event_filter = $("#event_search");
     var $venue_filter = $("#venue_search");
     var $band_filter = $("#band_search");
@@ -352,6 +353,16 @@ var get12Hour = function(timestring) {
 
     // main function
     var init = function(data, latitude, longitude) {
+
+        // womp up the datepicker
+        $('#day_search').datepicker({
+            todayHighlight: isItSXSW(),
+            autoclose: true,
+            format: "MM d",
+            startDate: new Date(sxsw_start),
+            endDate: new Date(sxsw_end),
+            clearBtn: true
+        });
 
         // check viewport and serve up a random background image
         // img files are slugged bg-sm-1, bg-md-1, bg-lg-1, etc., and we have eight of them
@@ -620,7 +631,7 @@ var get12Hour = function(timestring) {
             geo = $("#geo_search option:selected").val();
         }
         return {
-            day: $("#day_search option:selected").val(),
+            day: $day_filter.val().toUpperCase().replace("MARCH ",""),
             geo: geo,
             event_name: $event_filter.val().toUpperCase(),
             venue: $venue_filter.val().toUpperCase(),
