@@ -453,6 +453,10 @@ var get12Hour = function(timestring) {
         var toggle_filters = function() {
             $more_filters.toggle();
             $toggle_options.toggle();
+            var is_visible = $more_filters.is(":visible");
+            if (!is_visible) {
+                $('.morefilter').val("");
+            }
         };
 
         $('#more_filter_click').on('click', toggle_filters);
@@ -471,6 +475,13 @@ var get12Hour = function(timestring) {
               $list.html(template(data_to_template));
               $results_count.html("<div class='container'><h2>Found <strong>1</strong> party</h2><button class='btn btn-default btn-xs' type='button' id='clear_button' style='margin-top:0;'><i class='fa fa-times-circle'></i> Clear</button></div>");
               $bottom_matter.show();
+
+              // scroll to top of ad
+              var target = $("#bottom_matter");
+
+              $('html, body').animate({
+                  scrollTop: target.offset().top - 275
+              }, 'fast');
 
               $("#clear_button").on('click', clear_filters);
 

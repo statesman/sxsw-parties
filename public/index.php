@@ -39,7 +39,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="dist/style.css">
 
-  <link href='http://fonts.googleapis.com/css?family=Lusitana:400,700,900' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,900' rel='stylesheet' type='text/css'>
 
   <?php /* CMG advertising and analytics */ ?>
@@ -108,21 +107,21 @@
                 <div class="row" style="margin-top:20px;">
                 <div class="col-md-6 col-xs-12">
                     <div class="form-group" style="margin-top:10px;">
-                        <label for="day_search">Select day (leave blank for the whole week)</label>
+                        <label for="day_search">Select day (leave blank for all)</label>
                         <input type="text" class="form-control input-lg" id="day_search" value="">
                     </div>
                     <div id="more_filters" style="display:none;">
                         <div class="form-group" style="margin-top:10px;">
                             <label for="event_search">Event name contains</label>
-                            <input type="text" class="form-control input-lg" id="event_search" placeholder="Looking for a specific event?">
+                            <input type="text" class="form-control input-lg morefilter" id="event_search" placeholder="Looking for a specific event?">
                         </div>
                         <div class="form-group" style="margin-top:10px;">
                             <label for="venue_search">Venue name contains</label>
-                            <input type="text" class="form-control input-lg" id="venue_search" placeholder="A venue?">
+                            <input type="text" class="form-control input-lg morefilter" id="venue_search" placeholder="A venue?">
                         </div>
                         <div class="form-group" style="margin-top:10px;">
                             <label for="band_search">Band names contain</label>
-                            <input type="text" class="form-control input-lg" id="band_search" placeholder="A band?">
+                            <input type="text" class="form-control input-lg morefilter" id="band_search" placeholder="A band?">
                         </div>
                     </div>
                 </div>
@@ -162,7 +161,7 @@
 </div> <!-- // #top_matter -->
 
     <?php include "includes/banner-ad.inc";?>
-    
+
 <div id="bottom_matter">
     <div id="results_count"></div>
 
