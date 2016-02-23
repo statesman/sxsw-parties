@@ -161,8 +161,9 @@
 
 </div> <!-- // #top_matter -->
 
-<div id="bottom_matter">
     <?php include "includes/banner-ad.inc";?>
+    
+<div id="bottom_matter">
     <div id="results_count"></div>
 
     <div class="container">

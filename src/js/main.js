@@ -461,7 +461,7 @@ var get12Hour = function(timestring) {
         // Check if user passed a hashed ID to the URL
         if(window.location.hash) {
           var event_id = window.location.hash.replace("#","");
-          var record = _.findWhere(data.events, {"id": +party_place_id});
+          var record = _.findWhere(data.events, {"id": +event_id});
           if (record && record !== null) {
               var data_to_template = [{
                   event_details: record,
@@ -611,7 +611,7 @@ var get12Hour = function(timestring) {
             var target = $("#bottom_matter");
 
             $('html, body').animate({
-                scrollTop: target.offset().top - 70
+                scrollTop: target.offset().top - 275
             }, 'fast');
 
             $loader.hide();
