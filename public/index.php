@@ -36,7 +36,6 @@
   <meta name="twitter:image" id="tw_img_meta" content="<?php print $meta['img']; ?>" />
   <meta name="twitter:url" content="<?php print $meta['url']; ?>" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="dist/style.css">
 
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,900' rel='stylesheet' type='text/css'>
