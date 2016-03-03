@@ -29,148 +29,6 @@ var fetchImg = function(link) {
     return "https://s3-us-west-2.amazonaws.com/media.data.statesman.com/" + link;
 };
 
-/*
-// function to return calendar items for Google, Yahoo, Outlook and iCal
-// adapted from: https://github.com/carlsednaoui/add-to-calendar-buttons
-
-  var calendarLinks = function(event_title, startDateTimeString, endDateTimeString, event_address, event_description) {
-
-      var MS_IN_MINUTES = 60 * 1000;
-
-      var formatTime = function(date) {
-        return date.toISOString().replace(/-|:|\.\d+/g, '');
-      };
-
-      var calculateEndTime = function(event) {
-        return event.end ?
-          formatTime(event.end) :
-          formatTime(new Date(event.start.getTime() + (event.duration * MS_IN_MINUTES)));
-      };
-
-      var calendarGenerators = {
-        google: function(event) {
-          var startTime = formatTime(event.start);
-          var endTime = calculateEndTime(event);
-
-          var href = encodeURI([
-            'https://www.google.com/calendar/render',
-            '?action=TEMPLATE',
-            '&text=' + (event.title || ''),
-            '&dates=' + (startTime || ''),
-            '/' + (endTime || ''),
-            '&details=' + (event.description || ''),
-            '&location=' + (event.address || ''),
-            '&sprop=&sprop=name:'
-          ].join(''));
-          var google_obj = {
-              icon: "fa-google",
-              href: href
-          };
-          return google_obj;
-      },
-
-        yahoo: function(event) {
-          var eventDuration = event.end ?
-            ((event.end.getTime() - event.start.getTime())/ MS_IN_MINUTES) :
-            event.duration;
-
-          // Yahoo dates are crazy, we need to convert the duration from minutes to hh:mm
-          var yahooHourDuration = eventDuration < 600 ?
-            '0' + Math.floor((eventDuration / 60)) :
-            Math.floor((eventDuration / 60)) + '';
-
-          var yahooMinuteDuration = eventDuration % 60 < 10 ?
-            '0' + eventDuration % 60 :
-            eventDuration % 60 + '';
-
-          var yahooEventDuration = yahooHourDuration + yahooMinuteDuration;
-
-          // Remove timezone from event time
-          var st = formatTime(new Date(event.start - (event.start.getTimezoneOffset() *
-                                                      MS_IN_MINUTES))) || '';
-
-          var href = encodeURI([
-            'http://calendar.yahoo.com/?v=60&view=d&type=20',
-            '&title=' + (event.title || ''),
-            '&st=' + st,
-            '&dur=' + (yahooEventDuration || ''),
-            '&desc=' + (event.description || ''),
-            '&in_loc=' + (event.address || '')
-          ].join(''));
-
-          var yahoo_obj = {
-              icon: "fa-yahoo",
-              href: href
-          };
-          return yahoo_obj;
-        },
-
-        ics: function(event, calendarName) {
-          var startTime = formatTime(event.start);
-          var endTime = calculateEndTime(event);
-
-          var href = encodeURI(
-            'data:text/calendar;charset=utf8,' + [
-              'BEGIN:VCALENDAR',
-              'VERSION:2.0',
-              'BEGIN:VEVENT',
-              'URL:' + document.URL,
-              'DTSTART:' + (startTime || ''),
-              'DTEND:' + (endTime || ''),
-              'SUMMARY:' + (event.title || ''),
-              'DESCRIPTION:' + (event.description || ''),
-              'LOCATION:' + (event.address || ''),
-              'END:VEVENT',
-              'END:VCALENDAR'].join('\n'));
-
-          var ics_obj = {
-            icon: "fa-calendar-plus-o",
-            href: href
-          };
-          return ics_obj;
-        },
-      };
-
-      var generateCalendars = function(event) {
-        return {
-          google: calendarGenerators.google(event),
-          yahoo: calendarGenerators.yahoo(event),
-          ics: calendarGenerators.ics(event)
-        };
-      };
-
-      // Make sure we have the necessary event data, such as start time and event duration
-      var validParams = function(params) {
-        return params.data !== undefined && params.data.start !== undefined &&
-          (params.data.end !== undefined || params.data.duration !== undefined);
-      };
-
-      var createCalendar = function(params) {
-        if (!validParams(params)) {
-          console.log('Event details missing.');
-          return;
-        }
-        return generateCalendars(params.data);
-      };
-
-    var myCalendar = createCalendar({
-      options: {
-        class: '.add-cal',
-      },
-      data: {
-        title: event_title,
-        start: new Date(startDateTimeString),
-        end: new Date(endDateTimeString),
-        address: event_address + ' Austin TX',
-        description: event_description
-      }
-    });
-
-    return myCalendar;
-};
-
-*/
-
 // function to check/uncheck top button icons
 var checkItOut = function() {
     var text = this.textContent.trim();
@@ -219,10 +77,10 @@ var haversine = function(lat1, lng1, lat2, lng2) {
 // function to return social links
 var aas_social = function(event_id, event_name, event_time, event_date, venue_name) {
     var root_url = window.location.hostname + "/sxsw/";
-    var twitter_message = encodeURIComponent("Via @statesman SXSW party guide: " + event_name + " ~ March " + event_date + ", " + get12Hour(event_time) + " ~ " + venue_name + ": " + root_url + "/#" + event_id);
+    var twitter_message = encodeURIComponent("Via @statesman SXSW party guide: " + event_name + " ~ March " + event_date + ", " + get12Hour(event_time) + " ~ " + venue_name + ": " + root_url + "#" + event_id);
     return {
         tw: "https://twitter.com/intent/tweet?text=" + twitter_message,
-        fb: "http://www.facebook.com/sharer.php?u=" + root_url + "/#" + event_id
+        fb: "http://www.facebook.com/sharer.php?u=" + root_url + "#" + event_id
     };
 };
 
@@ -464,30 +322,25 @@ var get12Hour = function(timestring) {
 
         // Check if user passed a hashed ID to the URL
         if(window.location.hash) {
-          var event_id = window.location.hash.replace("#","");
-          var record = _.findWhere(data.events, {"id": +event_id});
-          if (record && record !== null) {
-              var data_to_template = [{
-                  event_details: record,
-                  venue_details: _.findWhere(data.venues, {"id": +record.party_place_id})
-              }];
+          var hash = window.location.hash.replace("#","");
+          if (!isNaN(hash)) {
+              var record = _.findWhere(data.events, {"id": +hash});
+              if (record && record !== null) {
+                  var data_to_template = [{
+                      event_details: record,
+                      venue_details: _.findWhere(data.venues, {"id": +record.party_place_id})
+                  }];
 
-              $list.html(template(data_to_template));
-              $results_count.html("<div class='container'><h2>Found <strong>1</strong> party</h2><button class='btn btn-default btn-xs' type='button' id='clear_button' style='margin-top:0;'><i class='fa fa-times-circle'></i> Clear</button></div>");
-              $bottom_matter.show();
+                  $list.html(template(data_to_template));
+                  $results_count.html("<div class='container'><h2>Found <strong>1</strong> party</h2><button class='btn btn-default btn-xs' type='button' id='clear_button' style='margin-top:0;'><i class='fa fa-times-circle'></i> Clear</button></div>");
+                  $bottom_matter.show();
 
-              // scroll to top of ad
-              var target = $("#bottom_matter");
+                  $("#clear_button").on('click', clear_filters);
 
-              $('html, body').animate({
-                  scrollTop: target.offset().top - 275
-              }, 'fast');
-
-              $("#clear_button").on('click', clear_filters);
-
-              $(".comment").shorten();
-              $('[data-toggle="tooltip"]').tooltip();
-          }
+                  $(".comment").shorten();
+                  $('[data-toggle="tooltip"]').tooltip();
+              }
+            }
         }
 
         // is it the week of SXSW? If so, set the select menu option to that day
@@ -503,6 +356,36 @@ var get12Hour = function(timestring) {
         $submit_button.on('click', function() {
             $loader.show();
             var search_state = getSearchState();
+
+            var hash_string = [];
+
+            if (search_state.day !== "") {
+                hash_string.push("d" + search_state.day);
+            }
+            if (search_state.free_entry) {
+                hash_string.push("free_entry");
+            }
+            if (search_state.free_food) {
+                hash_string.push("free_entry");
+            }
+            if (search_state.rsvp) {
+                hash_string.push("rsvp");
+            }
+            if (search_state.staff_pick) {
+                hash_string.push("staff_pick");
+            }
+            if (search_state.official) {
+                hash_string.push("official");
+            }
+
+            window.location.hash = "search?params=" + hash_string.join("&");
+
+            s.pageName=location.href;
+            s.pageURL=location.href;
+            s.prop63=location.href;
+            s.eVar55=location.href;
+            s.t();
+
             var matches = _.chain(data.events)
                 .filter(function(d) {
                     var venue_details = _.findWhere(data.venues, {"id": +d.party_place_id});
@@ -660,6 +543,12 @@ var get12Hour = function(timestring) {
     };
 
     $(document).ready(function() {
+        var $target = $("#bottom_matter");
+        var isEventHash = false;
+        if (window.location.hash) {
+            var hash = window.location.hash.replace("#","");
+            isEventHash = isNaN(hash);
+        }
         $.getJSON(data_url, function(d) {
             // function to return user lat/lng, if geolocation is available and they opt in
             var getCoords = function(callback) {
@@ -675,6 +564,11 @@ var get12Hour = function(timestring) {
                 $filter_wrapper.show();
                 init(d, null, null);
                 $loader.hide();
+                if(isEventHash) {
+                  $('html, body').animate({
+                      scrollTop: $target.offset().top - 275
+                  }, 'fast');
+                }
             };
             getCoords(function(position) {
               if(position !== null) {
@@ -684,13 +578,22 @@ var get12Hour = function(timestring) {
                   init(d, user_lat, user_lng);
                   $top_matter.show();
                   $filter_wrapper.show();
+                if(isEventHash) {
+                  $('html, body').animate({
+                      scrollTop: $target.offset().top - 275
+                  }, 'fast');
+                }
               } else {
                   init(d, null, null);
                 $top_matter.show();
                 $filter_wrapper.show();
+                if(isEventHash) {
+                  $('html, body').animate({
+                      scrollTop: $target.offset().top - 275
+                  }, 'fast');
+                }
               }
             });
         });
     });
-
 }(jQuery, _));

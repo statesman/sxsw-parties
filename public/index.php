@@ -244,6 +244,9 @@
     <?php include "includes/legal.inc";?>
     <?php include "includes/project-metrics.inc"; ?>
     <?php include "includes/metrics.inc"; ?>
+    <script>
+    var blorp = "blapp";
+    </script>
     <script src="dist/scripts.js"></script>
 
   <?php if($_SERVER['SERVER_NAME'] === 'localhost'): ?>
