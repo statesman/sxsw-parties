@@ -322,8 +322,8 @@ var get12Hour = function(timestring) {
 
         // Check if user passed a hashed ID to the URL
         if(window.location.hash) {
-          var hash = window.location.hash.replace("#","");
-          if (!isNaN(hash)) {
+            var hash = window.location.hash.replace("#","");
+            if (!isNaN(hash)) {
               var record = _.findWhere(data.events, {"id": +hash});
               if (record && record !== null) {
                   var data_to_template = [{
@@ -341,6 +341,14 @@ var get12Hour = function(timestring) {
                   $('[data-toggle="tooltip"]').tooltip();
               }
             }
+            var $target = $("#bottom_matter");
+            $.when (
+                $(".grid-item").length > 0
+            ).then(function () {
+                $('html, body').animate({
+                    scrollTop: $target.offset().top - 275
+                }, 'fast');
+            });
         }
 
         // is it the week of SXSW? If so, set the select menu option to that day
@@ -366,7 +374,7 @@ var get12Hour = function(timestring) {
                 hash_string.push("free_entry");
             }
             if (search_state.free_food) {
-                hash_string.push("free_entry");
+                hash_string.push("free_food");
             }
             if (search_state.rsvp) {
                 hash_string.push("rsvp");
@@ -543,12 +551,6 @@ var get12Hour = function(timestring) {
     };
 
     $(document).ready(function() {
-        var $target = $("#bottom_matter");
-        var isEventHash = false;
-        if (window.location.hash) {
-            var hash = window.location.hash.replace("#","");
-            isEventHash = isNaN(hash);
-        }
         $.getJSON(data_url, function(d) {
             // function to return user lat/lng, if geolocation is available and they opt in
             var getCoords = function(callback) {
@@ -564,11 +566,6 @@ var get12Hour = function(timestring) {
                 $filter_wrapper.show();
                 init(d, null, null);
                 $loader.hide();
-                if(isEventHash) {
-                  $('html, body').animate({
-                      scrollTop: $target.offset().top - 275
-                  }, 'fast');
-                }
             };
             getCoords(function(position) {
               if(position !== null) {
@@ -578,20 +575,10 @@ var get12Hour = function(timestring) {
                   init(d, user_lat, user_lng);
                   $top_matter.show();
                   $filter_wrapper.show();
-                if(isEventHash) {
-                  $('html, body').animate({
-                      scrollTop: $target.offset().top - 275
-                  }, 'fast');
-                }
               } else {
                   init(d, null, null);
                 $top_matter.show();
                 $filter_wrapper.show();
-                if(isEventHash) {
-                  $('html, body').animate({
-                      scrollTop: $target.offset().top - 275
-                  }, 'fast');
-                }
               }
             });
         });
