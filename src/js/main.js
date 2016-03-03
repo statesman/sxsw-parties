@@ -77,10 +77,10 @@ var haversine = function(lat1, lng1, lat2, lng2) {
 // function to return social links
 var aas_social = function(event_id, event_name, event_time, event_date, venue_name) {
     var root_url = window.location.hostname + "/sxsw/";
-    var twitter_message = encodeURIComponent("Via @statesman SXSW party guide: " + event_name + " ~ March " + event_date + ", " + get12Hour(event_time) + " ~ " + venue_name + ": " + root_url + "#" + event_id);
+    var twitter_message = encodeURIComponent("Via @statesman SXSW party guide: " + event_name + " ~ March " + event_date + ", " + get12Hour(event_time) + " ~ " + venue_name + ": " + root_url + "#_event" + event_id);
     return {
         tw: "https://twitter.com/intent/tweet?text=" + twitter_message,
-        fb: "http://www.facebook.com/sharer.php?u=" + root_url + "#" + event_id
+        fb: "http://www.facebook.com/sharer.php?u=" + root_url + "#_event" + event_id
     };
 };
 
@@ -322,7 +322,7 @@ var get12Hour = function(timestring) {
 
         // Check if user passed a hashed ID to the URL
         if(window.location.hash) {
-            var hash = window.location.hash.replace("#","");
+            var hash = window.location.hash.replace("#","").replace("_event","");
             if (!isNaN(hash)) {
               var record = _.findWhere(data.events, {"id": +hash});
               if (record && record !== null) {
@@ -339,16 +339,12 @@ var get12Hour = function(timestring) {
 
                   $(".comment").shorten();
                   $('[data-toggle="tooltip"]').tooltip();
+                    var $target = $("#bottom_matter");
+                    $('html, body').animate({
+                        scrollTop: $target.offset().top - 275
+                    }, 'fast');
               }
             }
-            var $target = $("#bottom_matter");
-            $.when (
-                $(".grid-item").length > 0
-            ).then(function () {
-                $('html, body').animate({
-                    scrollTop: $target.offset().top - 275
-                }, 'fast');
-            });
         }
 
         // is it the week of SXSW? If so, set the select menu option to that day
@@ -386,7 +382,12 @@ var get12Hour = function(timestring) {
                 hash_string.push("official");
             }
 
-            window.location.hash = "search?params=" + hash_string.join("&");
+            var params = "";
+            if (hash_string.length > 0) {
+                params = "?params=" + hash_string.join("&");
+            }
+
+            window.location.hash = "_search" + params;
 
             s.pageName=location.href;
             s.pageURL=location.href;
@@ -572,13 +573,13 @@ var get12Hour = function(timestring) {
                   var user_lat = position.coords.latitude;
                   var user_lng = position.coords.longitude;
                   $geo_search_wrapper.show();
-                  init(d, user_lat, user_lng);
                   $top_matter.show();
                   $filter_wrapper.show();
+                  init(d, user_lat, user_lng);
               } else {
-                  init(d, null, null);
                 $top_matter.show();
                 $filter_wrapper.show();
+                init(d, null, null);
               }
             });
         });
