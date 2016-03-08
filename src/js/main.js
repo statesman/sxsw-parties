@@ -558,6 +558,14 @@ var get12Hour = function(timestring) {
                 $loader.show();
                 if (navigator.geolocation) {
                   navigator.geolocation.getCurrentPosition(callback, declined_geocoding);
+                  // hacky FF workaround - see: https://bugzilla.mozilla.org/show_bug.cgi?id=675533
+                  setTimeout(function () {
+                      if($loader.is(":visible")) {
+                        $top_matter.show();
+                        $filter_wrapper.show();
+                        init(d, null, null);
+                      }
+                  }, 6000);
                 } else {
                     callback(null);
                 }
@@ -569,7 +577,7 @@ var get12Hour = function(timestring) {
                 $loader.hide();
             };
             getCoords(function(position) {
-              if(position !== null) {
+              if(position) {
                   var user_lat = position.coords.latitude;
                   var user_lng = position.coords.longitude;
                   $geo_search_wrapper.show();

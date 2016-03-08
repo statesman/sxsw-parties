@@ -10,3 +10,5 @@ csvjson venues.csv > venues.json
 csvjson parties.csv > parties.json
 python merge_json.py
 rm venues.csv parties.csv venues.json parties.json
+
+#\copy (SELECT * from sideparties_venue, sideparties_event WHERE sideparties_venue.id = sideparties_event.party_place_id) TO '~/www/projects/sxsw/public/sxsw_parties_flattened.csv' QUOTE '"' CSV HEADER;
