@@ -20,6 +20,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# CSV ish
+csvish/
+
 ### grunt ###
 # Grunt usually preprocesses files such as coffeescript, compass... inside the .tmp directory
 .tmp/

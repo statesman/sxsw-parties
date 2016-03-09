@@ -89,8 +89,7 @@
     <div id="splash">
         <div class="container">
 
-            <h5 style="font-family: 'Roboto'">Presented by:</h5>
-            <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=300&h=50" style="max-width:100%;"/>
+            <img src="assets/sponsorship.jpg" style="max-width:100%;"/>
 
             <h1>Your unofficial SXSW party guide</h1>
                 <p class="lead">Search for <span id="total_count"></span> parties happening at SXSW 2016. Got a party to add? <a href="mailto:rcorbelli@statesman.com?subject=SXSW%20Party%20Guide">Let us know</a>.</p>

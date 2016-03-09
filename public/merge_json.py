@@ -36,8 +36,12 @@ with open('venues.json', 'rb') as v, \
         v['id'] = int(venue['id'])
         v['name'] = venue['name']
         v['address'] = venue['address']
-        v['latitude'] = float(venue['latitude'])
-        v['longitude'] = float(venue['longitude'])
+        try:
+            v['latitude'] = float(venue['latitude'])
+            v['longitude'] = float(venue['longitude'])
+        except:
+            v['latitude'] = 30.3079827
+            v['longitude'] = -97.8934866
         v['venue_website'] = venue['venue_website']
         v['twitter_handle'] = venue['twitter_handle']
         v['facebook_url'] = venue['facebook_url']
