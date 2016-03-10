@@ -125,7 +125,7 @@ module.exports = function(grunt) {
         src: 'public',
         dest: '/prod_aas/projects/sxsw/',
         exclusions: ['dist/tmp','Thumbs.db','.DS_Store'],
-        simple: false,
+        simple: true,
         useList: false
       }
     },
