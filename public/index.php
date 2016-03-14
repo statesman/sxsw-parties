@@ -200,7 +200,7 @@
 
                 <%= labelIt(d.event_details) %>
 
-                <p class="comment"><%= d.event_details.party_description %></p>
+                <p class="comment not_as_short"><%= d.event_details.party_description %></p>
 
                 <% if (d.event_details.event_or_rsvp_link && d.event_details.event_or_rsvp_link !== "") { %>
                 <hr>

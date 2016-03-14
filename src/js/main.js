@@ -10,10 +10,10 @@ var labelIt = function(item) {
   if (item.free_food) {
       ls.push('<span class="label label-primary" data-toggle="tooltip" data-placement="top" title="Free food"><i class="fa fa-cutlery"></i></span>');
   }
-  if (item.rsvp) {
+  if (item.rsvp_required) {
       ls.push('<span class="label label-info" data-toggle="tooltip" data-placement="top" title="RSVP required"><i class="fa fa-pencil"></i></span>');
   }
-  if (item.official) {
+  if (item.badge_required) {
       ls.push('<span class="label label-danger" data-toggle="tooltip" data-placement="top" title="Badge required"><i class="fa fa-shield"></i></span>');
   }
   if (ls.length > 0) {
@@ -119,7 +119,7 @@ var get12Hour = function(timestring) {
  $.fn.shorten = function (settings) {
 
         var config = {
-            showChars: 100,
+            showChars: 200,
             ellipsesText: "...",
             moreText: "<i class='fa fa-plus-square-o reload_masonry'></i>",
             lessText: "<i class='fa fa-minus-square-o reload_masonry'></i>"
