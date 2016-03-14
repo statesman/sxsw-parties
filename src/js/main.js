@@ -350,11 +350,7 @@ var get12Hour = function(timestring) {
         // is it the week of SXSW? If so, set the select menu option to that day
         var time_for_SXSW = isItSXSW();
 
-        if (time_for_SXSW) {
-            var d = new Date();
-            var today = d.getDate().toString();
-            $('#day_search option[value="' + today + '"]').attr("selected", "selected");
-        }
+        var data_to_search = data.events;
 
         // click submit, get results
         $submit_button.on('click', function() {
@@ -395,7 +391,7 @@ var get12Hour = function(timestring) {
             s.eVar55=location.href;
             s.t();
 
-            var matches = _.chain(data.events)
+            var matches = _.chain(data_to_search)
                 .filter(function(d) {
                     var venue_details = _.findWhere(data.venues, {"id": +d.party_place_id});
                     var exclude = 0;
@@ -412,6 +408,13 @@ var get12Hour = function(timestring) {
                     if (search_state.day !== "") {
                         if (search_state.day !== d.party_date.toString()) {
                                 exclude++;
+                        }
+                    } else {
+                        if (time_for_SXSW) {
+                            var q = new Date().getDate();
+                            if (+d.party_date < +q) {
+                                    exclude++;
+                            }
                         }
                     }
                     if (search_state.geo !== "") {

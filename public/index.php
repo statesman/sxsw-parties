@@ -109,7 +109,7 @@
                 <div class="row" style="margin-top:20px;">
                 <div class="col-md-6 col-xs-12">
                     <div class="form-group" style="margin-top:10px;">
-                        <label for="day_search">Select day (leave blank for all)</label>
+                        <label for="day_search">Select day (leave blank to search current/future parties)</label>
                         <input type="text" class="form-control input-lg" id="day_search" value="">
                     </div>
                     <div id="more_filters" style="display:none;">
